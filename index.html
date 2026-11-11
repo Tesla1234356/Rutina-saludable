@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#16A34A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="NeuroDashboard YR">
+    <title>NeuroDashboard ✨ Yeny Ruth Afaraya Huancco</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#F0FDF4',
+                            100: '#DCFCE7',
+                            200: '#BBF7D0',
+                            400: '#4ADE80',
+                            500: '#22C55E',
+                            600: '#16A34A',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F8F9FA;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(254, 215, 170, 0.3) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(187, 247, 208, 0.35) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(243, 232, 255, 0.4) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(251, 207, 232, 0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(191, 219, 254, 0.35) 0px, transparent 50%);
+            background-attachment: fixed;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Glassmorphism estético */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px -5px rgba(100, 116, 139, 0.1);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(241, 245, 249, 0.9);
+            box-shadow: 0 4px 20px -2px rgba(148, 163, 184, 0.08);
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @media (min-width: 768px) {
+            .glass-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 30px -4px rgba(148, 163, 184, 0.16);
+            }
+        }
+
+        /* Botella de agua con onda de marea */
+        .bottle-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 28px;
+            background: #E0F2FE;
+            box-shadow: inset 0 2px 10px rgba(2, 132, 199, 0.15);
+        }
+        .water-wave-fill {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, #38BDF8 0%, #0284C7 100%);
+            transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 0 0 28px 28px;
+        }
+        .water-wave-fill::before {
+            content: "";
+            position: absolute;
+            top: -14px;
+            left: 0;
+            width: 200%;
+            height: 28px;
+            background: radial-gradient(circle, #38BDF8 45%, transparent 55%);
+            background-size: 24px 24px;
+            opacity: 0.7;
+            animation: waveMotion 3s linear infinite;
+        }
+        @keyframes waveMotion {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Scrollbars delicadas */
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(203, 213, 225, 0.6);
+            border-radius: 9999px;
+        }
+
+        /* Estado activo de botones desktop */
+        .nav-btn.active {
+            background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+            color: #FFFFFF !important;
+            box-shadow: 0 8px 20px -4px rgba(34, 197, 94, 0.35);
+        }
+        .nav-btn.active span {
+            color: #FFFFFF;
+        }
+
+        /* Estado activo de botones mobile dock */
+        .mobile-nav-btn.active {
+            color: #16A34A;
+        }
+        .mobile-nav-btn.active .icon-pill {
+            background: #DCFCE7;
+            transform: scale(1.1);
+        }
+
+        @keyframes popUp {
+            0% { transform: scale(0.85); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-pop {
+            animation: popUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        /* Indicador de actividad actual en vivo */
+        .current-active-card {
+            border-color: #22C55E !important;
+            box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.4), 0 10px 25px -5px rgba(34, 197, 94, 0.25) !important;
+        }
+    </style>
+</head>
+<body class="h-full w-full flex flex-col md:flex-row text-slate-800 antialiased select-none md:overflow-hidden">
+
+    <!-- Canvas de Confeti a pantalla completa -->
+    <canvas id="confettiCanvas" class="fixed inset-0 pointer-events-none z-50"></canvas>
+
+    <!-- ============================================== -->
+    <!-- MODAL DE FELICITACIONES PERSONALIZADO -->
+    <!-- ============================================== -->
+    <div id="congratsModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="glass-panel max-w-sm sm:max-w-md w-full p-6 sm:p-8 rounded-3xl text-center space-y-4 shadow-2xl border-2 border-emerald-400 animate-pop relative">
+            <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-3xl bg-gradient-to-tr from-emerald-400 to-teal-500 text-white flex items-center justify-center text-3xl mx-auto shadow-lg shadow-emerald-500/30">
+                🏆
+            </div>
+            <div>
+                <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                    ¡Meta Cumplida al 100%!
+                </span>
+                <h3 class="text-xl sm:text-2xl font-display font-extrabold text-slate-800 mt-2">
+                    ¡Felicitaciones, Yeny Ruth!
+                </h3>
+                <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                    ¡Has completado toda tu rutina universitaria hoy! Hidratación completa, comedor universitario, caminata, actividad física, estudio profundo y descanso reparador de 8 horas.
+                </p>
+                <div class="p-3 mt-3 rounded-2xl bg-purple-50 border border-purple-200 text-[11px] sm:text-xs text-purple-700 italic">
+                    "Los hábitos que creas hoy, determinarán quién serás." — <strong>Nicole Vignola</strong>
+                </div>
+            </div>
+            <button onclick="closeCongratsModal()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-xs uppercase tracking-wider shadow-lg shadow-emerald-500/30 hover:opacity-95 transition">
+                ¡Gracias! Seguir brillando ✨
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- TOP BAR MÓVIL (SOLO VISIBLE EN CELULARES) -->
+    <!-- ============================================== -->
+    <header class="flex md:hidden glass-panel px-4 py-3 items-center justify-between border-b border-white/60 sticky top-0 z-30 shrink-0">
+        <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-pink-400 via-rose-400 to-purple-500 p-0.5 shadow-sm shrink-0">
+                <div class="w-full h-full bg-white rounded-[10px] flex items-center justify-center font-display font-extrabold text-[11px] text-purple-600">
+                    YR
+                </div>
+            </div>
+            <div>
+                <h1 class="font-display font-bold text-sm text-slate-800 leading-tight">Yeny Ruth</h1>
+                <span class="text-[10px] text-slate-400 font-medium">NeuroRutina 8h ✨</span>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <!-- Chip Racha Mini -->
+            <div class="flex items-center gap-1 text-[11px] font-bold text-purple-600 bg-purple-50 px-2 py-1 rounded-lg border border-purple-100">
+                <span>🔥</span> <span id="mobileStreakCount">3</span>d
+            </div>
+            <!-- Botón Sonido -->
+            <button onclick="toggleAudioMute()" id="mobileMuteBtn" class="w-8 h-8 rounded-lg bg-white/80 border border-slate-200/80 flex items-center justify-center text-xs text-slate-600">
+                🔔
+            </button>
+            <!-- Botón Fullscreen -->
+            <button onclick="toggleFullScreen()" class="w-8 h-8 rounded-lg bg-white/80 border border-slate-200/80 flex items-center justify-center text-slate-600">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- ============================================== -->
+    <!-- BARRA LATERAL (DESKTOP SIDEBAR) -->
+    <!-- ============================================== -->
+    <aside class="hidden md:flex w-72 lg:w-80 h-full glass-panel flex-col justify-between p-4 sm:p-5 z-30 shrink-0 border-r border-white/60">
+        
+        <div class="space-y-4">
+            <!-- Brand / Avatar de Yeny Ruth -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-pink-400 via-rose-400 to-purple-500 p-0.5 shadow-md shadow-pink-500/20 shrink-0">
+                        <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center font-display font-extrabold text-xs text-purple-600">
+                            YR
+                        </div>
+                    </div>
+                    <div>
+                        <h1 class="font-display font-extrabold text-sm sm:text-base text-slate-800 leading-tight">
+                            Yeny Ruth
+                        </h1>
+                        <span class="text-[10px] font-semibold text-slate-400 truncate block max-w-[150px]">
+                            Afaraya Huancco
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Botón Modo Pantalla Completa (F11) -->
+                <button onclick="toggleFullScreen()" class="w-9 h-9 rounded-xl bg-white/80 hover:bg-white border border-slate-200/80 flex items-center justify-center text-slate-600 hover:text-slate-900 transition shadow-sm" title="Pantalla Completa">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Card de Bienvenida & Rol -->
+            <div class="p-3 rounded-2xl bg-gradient-to-r from-emerald-50 via-teal-50 to-sky-50 border border-emerald-200/60 text-xs space-y-1">
+                <div class="text-[10px] uppercase font-extrabold text-emerald-700 flex items-center gap-1.5">
+                    <span>🎓</span> <span>Estudiante Universitaria</span>
+                </div>
+                <div class="text-[11px] text-slate-600 font-medium">
+                    Plan estratégico: 8 horas de sueño + máximo rendimiento cognitivo.
+                </div>
+            </div>
+
+            <!-- Widget Racha & Semestre Desktop -->
+            <div class="grid grid-cols-2 gap-2 p-2.5 rounded-2xl bg-white/70 border border-slate-200/70 shadow-sm text-xs">
+                <div>
+                    <div class="text-[10px] text-slate-400 font-bold uppercase">Semestre</div>
+                    <div class="font-extrabold text-slate-800 flex items-baseline gap-1">
+                        <span id="sidebarDaysRemaining" class="text-base text-emerald-600">--</span> días
+                    </div>
+                </div>
+                <div class="border-l border-slate-100 pl-2">
+                    <div class="text-[10px] text-slate-400 font-bold uppercase">Racha</div>
+                    <div class="font-extrabold text-purple-600 flex items-center gap-1">
+                        <span>🔥</span> <span id="sidebarStreak">3</span> días
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTONES DE NAVEGACIÓN DESKTOP -->
+            <nav class="space-y-1.5 pt-1">
+                <button onclick="switchView('horario')" id="nav-horario" class="nav-btn active w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white/80 transition-all duration-200">
+                    <span class="text-lg">⏰</span>
+                    <span class="flex-1 text-left">Mi Horario Completo</span>
+                    <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-white/30 text-white font-semibold">14 Bloques</span>
+                </button>
+
+                <button onclick="switchView('nutricion')" id="nav-nutricion" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white/80 transition-all duration-200">
+                    <span class="text-lg">🥗</span>
+                    <span class="flex-1 text-left">Nutrición & Cenas</span>
+                    <span id="navWaterBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 font-bold">0 ml</span>
+                </button>
+
+                <button onclick="switchView('neuro')" id="nav-neuro" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white/80 transition-all duration-200">
+                    <span class="text-lg">🧠</span>
+                    <span class="flex-1 text-left">Neurociencia (Nicole)</span>
+                    <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-purple-100 text-purple-700 font-bold">Hacks</span>
+                </button>
+
+                <button onclick="switchView('metas')" id="nav-metas" class="nav-btn w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white/80 transition-all duration-200">
+                    <span class="text-lg">🎯</span>
+                    <span class="flex-1 text-left">Metas & Semestre</span>
+                    <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-amber-100 text-amber-700 font-bold">Éxito</span>
+                </button>
+            </nav>
+        </div>
+
+        <!-- Footer Sidebar Desktop -->
+        <div class="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span id="sidebarLiveClock" class="font-mono font-bold text-slate-700">08:00 AM</span>
+            </div>
+            <div class="flex items-center gap-1">
+                <button onclick="toggleAudioMute()" id="sidebarMuteBtn" class="p-1.5 rounded-xl hover:bg-white transition text-slate-600" title="Sonido activado">
+                    🔔
+                </button>
+                <button onclick="resetDayAction()" class="p-1.5 rounded-xl hover:bg-rose-50 text-slate-400 hover:text-rose-500 transition" title="Reiniciar marcas de hoy">
+                    🔄
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ============================================== -->
+    <!-- ÁREA PRINCIPAL (SCROLLABLE & FULL RESPONSIVE) -->
+    <!-- ============================================== -->
+    <main id="mainContentScroll" class="flex-1 h-auto md:h-full overflow-y-auto p-4 sm:p-6 lg:p-8 pb-28 md:pb-8 flex flex-col justify-between">
+
+        <!-- Top Bar con Saludo Personalizado para Yeny Ruth -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 sm:mb-6">
+            <div>
+                <span id="headerGreeting" class="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-emerald-700">
+                    ¡Bienvenida, Yeny Ruth Afaraya Huancco! ✨
+                </span>
+                <h2 id="headerSectionTitle" class="text-xl sm:text-2xl lg:text-3xl font-display font-extrabold text-slate-800">
+                    Mi Horario Completo (Rutina de 8 Horas de Sueño)
+                </h2>
+            </div>
+
+            <!-- Barra de Progreso Global del Día -->
+            <div class="bg-white/80 border border-slate-200/80 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl flex items-center justify-between sm:justify-start gap-3 shadow-sm">
+                <div>
+                    <div class="text-[9px] sm:text-[10px] uppercase font-bold text-slate-400">Progreso Diario</div>
+                    <div id="topProgressText" class="text-xs sm:text-sm font-extrabold text-emerald-600">0%</div>
+                </div>
+                <div class="w-28 sm:w-32 bg-slate-100 h-2.5 rounded-full overflow-hidden p-0.5 border border-slate-200/60">
+                    <div id="topProgressBar" class="h-full bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- VISTA 1: MI HORARIO COMPLETO (14 BLOQUES DEL PLAN DOCX) -->
+        <!-- ======================================================== -->
+        <div id="view-horario" class="content-view space-y-4 sm:space-y-6 flex-1">
+            
+            <!-- Banner de Estado en Tiempo Real -->
+            <div class="p-3.5 sm:p-4 rounded-3xl bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-sky-500/10 border border-emerald-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-emerald-500 text-white flex items-center justify-center text-lg sm:text-xl shadow-md shadow-emerald-500/20 shrink-0">
+                        ⚡
+                    </div>
+                    <div>
+                        <div class="text-[10px] sm:text-[11px] font-bold text-emerald-700 uppercase tracking-wider">
+                            Actividad actual de Yeny Ruth en este momento:
+                        </div>
+                        <div id="currentLiveActivityName" class="text-xs sm:text-sm font-extrabold text-slate-800">
+                            Detectando horario actual...
+                        </div>
+                    </div>
+                </div>
+                <div class="text-[11px] text-slate-600 font-medium flex flex-wrap items-center gap-1.5 sm:gap-2">
+                    <span class="bg-amber-100/90 text-amber-900 px-2 py-0.5 rounded-lg border border-amber-200 font-bold">🥣 Desayuno: 6:50 AM</span>
+                    <span class="bg-emerald-100/90 text-emerald-900 px-2 py-0.5 rounded-lg border border-emerald-200 font-bold">🍽️ Almuerzo: 1:00 PM</span>
+                    <span class="bg-rose-100 text-rose-900 px-2.5 py-0.5 rounded-lg border border-rose-300 font-extrabold shadow-xs">🍲 Cena: 7:15 PM</span>
+                    <span class="bg-indigo-100/90 text-indigo-900 px-2 py-0.5 rounded-lg border border-indigo-200 font-bold">🌙 Dormir: 9:00 PM</span>
+                </div>
+            </div>
+
+            <!-- Barra de Filtros Rápidos del Horario -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-bold">
+                <button onclick="filterSchedule('all')" id="filter-all" class="schedule-filter-btn px-3 py-1.5 rounded-xl bg-slate-800 text-white transition shrink-0 shadow-xs">
+                    🌟 Todos los 14 Bloques
+                </button>
+                <button onclick="filterSchedule('comidas')" id="filter-comidas" class="schedule-filter-btn px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-emerald-400 hover:text-emerald-700 transition shrink-0 flex items-center gap-1.5">
+                    <span>🍲</span> <span>Solo Comidas (Desayuno, Almuerzo y Cena)</span>
+                </button>
+                <button onclick="filterSchedule('universidad')" id="filter-universidad" class="schedule-filter-btn px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-indigo-400 hover:text-indigo-700 transition shrink-0 flex items-center gap-1.5">
+                    <span>🎓</span> <span>Universidad & Clases</span>
+                </button>
+                <button onclick="filterSchedule('noche')" id="filter-noche" class="schedule-filter-btn px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-purple-400 hover:text-purple-700 transition shrink-0 flex items-center gap-1.5">
+                    <span>🌙</span> <span>Noche & 8h Sueño</span>
+                </button>
+            </div>
+
+            <!-- Grid de Tarjetas del Horario (1 Col en Móvil, 2 Cols en Pantallas Grandes) -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-3.5" id="scheduleCardsGrid"></div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- VISTA 2: NUTRICIÓN, COMEDOR U & GUÍA COMPLETA DE CENAS -->
+        <!-- ======================================================== -->
+        <div id="view-nutricion" class="content-view hidden space-y-5 sm:space-y-6 flex-1">
+            
+            <!-- Fila Superior: Agua y Frutas/Verduras -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
+
+                <!-- Botella de Agua Interactiva Grande -->
+                <div class="glass-card p-4 sm:p-6 rounded-3xl flex flex-col justify-between space-y-4 sm:space-y-5">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-xl sm:text-2xl shrink-0">
+                                💧
+                            </div>
+                            <div>
+                                <h3 class="font-display font-extrabold text-base sm:text-lg text-slate-800">Hidratación de Yeny Ruth</h3>
+                                <p class="text-[11px] sm:text-xs text-slate-500">Meta: 2,000 ml diarios para tu agudeza mental</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span id="waterLargeMl" class="text-xl sm:text-2xl font-display font-extrabold text-sky-600">0 ml</span>
+                            <div id="waterLargeGlasses" class="text-[11px] text-slate-400 font-semibold">0 / 8 vasos</div>
+                        </div>
+                    </div>
+
+                    <!-- Botella con visual responsivo -->
+                    <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 bg-sky-50/60 border border-sky-100 p-4 sm:p-5 rounded-3xl">
+                        <div class="w-20 h-40 sm:w-24 sm:h-48 bottle-container flex flex-col justify-end items-center border-2 border-sky-300 relative shrink-0">
+                            <div id="largeWaterLiquid" class="water-wave-fill w-full" style="height: 0%;"></div>
+                            <span id="largeWaterPercent" class="absolute inset-0 flex items-center justify-center text-xs sm:text-sm font-extrabold text-slate-800 z-10 pointer-events-none drop-shadow-sm">
+                                0%
+                            </span>
+                        </div>
+
+                        <div class="flex-1 w-full space-y-2.5 sm:space-y-3">
+                            <div class="text-[11px] sm:text-xs text-slate-600 leading-relaxed text-center sm:text-left">
+                                Toca cualquier vaso para marcarlo (+250 ml cada uno).
+                            </div>
+                            <div class="grid grid-cols-4 gap-2" id="interactiveGlassesGrid"></div>
+                            <button onclick="quickAddWater()" class="w-full py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs transition shadow-sm shadow-sky-500/20 active:scale-95">
+                                +1 Vaso Rápido (250 ml)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="text-[11px] sm:text-xs text-sky-800 bg-sky-100/60 p-3 rounded-2xl border border-sky-200 flex items-center gap-2">
+                        <span>💡</span>
+                        <span><strong>Tip para Yeny:</strong> 500 ml al despertar + tomatodo de 1L en clases (7:00 a 13:00) + 500 ml en la tarde.</span>
+                    </div>
+                </div>
+
+                <!-- Frutas, Verduras & Comedor U -->
+                <div class="space-y-4 sm:space-y-6 flex flex-col justify-between">
+                    <div class="glass-card p-4 sm:p-6 rounded-3xl space-y-3 sm:space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2.5 sm:gap-3">
+                                <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl sm:text-2xl shrink-0">
+                                    🥑
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-extrabold text-base sm:text-lg text-slate-800">Frutas & Verduras</h3>
+                                    <p class="text-[11px] sm:text-xs text-slate-500">Meta: 5 porciones diarias (2 frutas y 3 verduras)</p>
+                                </div>
+                            </div>
+                            <span id="foodTotalScoreBadge" class="text-xs sm:text-sm font-extrabold px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200">
+                                0 / 5 hoy
+                            </span>
+                        </div>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2" id="nutritionFoodPills"></div>
+                    </div>
+
+                    <!-- Horarios de las 3 Comidas Principales (Desayuno, Almuerzo y Cena) -->
+                    <div class="glass-card p-4 sm:p-6 rounded-3xl space-y-2.5 sm:space-y-3 bg-gradient-to-br from-amber-50/50 via-emerald-50/40 to-indigo-50/40 border border-emerald-200/50">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-display font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2">
+                                <span>🍽️</span> Horarios & Protocolo de las 3 Comidas Principales
+                            </h4>
+                            <span class="text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">
+                                Rutina Diaria
+                            </span>
+                        </div>
+                        
+                        <div class="space-y-2 text-[11px] sm:text-xs text-slate-600">
+                            <!-- 1. Desayuno -->
+                            <div class="p-2.5 rounded-xl bg-white border border-slate-200/80 flex items-start gap-2.5 shadow-sm">
+                                <span class="text-amber-600 font-extrabold bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-lg shrink-0 text-[10px] font-mono">
+                                    06:50 AM
+                                </span>
+                                <div>
+                                    <strong class="text-slate-800">Desayuno (Comedor U):</strong> Proteína primero (huevos, queso, avena o leche). Guarda tu fruta para el snack de media mañana (10:00 AM).
+                                </div>
+                            </div>
+
+                            <!-- 2. Almuerzo -->
+                            <div class="p-2.5 rounded-xl bg-white border border-slate-200/80 flex items-start gap-2.5 shadow-sm">
+                                <span class="text-emerald-600 font-extrabold bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-lg shrink-0 text-[10px] font-mono">
+                                    01:00 PM
+                                </span>
+                                <div>
+                                    <strong class="text-slate-800">Almuerzo (Comedor U):</strong> Come <em>toda la ensalada y verduras primero</em> antes del arroz o carne. La fibra regula tu glucosa y evita el bajón vespertino.
+                                </div>
+                            </div>
+
+                            <!-- 3. Cena -->
+                            <div class="p-2.5 rounded-xl bg-white border border-indigo-200 flex items-start gap-2.5 shadow-sm bg-indigo-50/30">
+                                <span class="text-indigo-600 font-extrabold bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-lg shrink-0 text-[10px] font-mono">
+                                    07:15 PM
+                                </span>
+                                <div>
+                                    <strong class="text-indigo-950">Cena Ligera (En Casa, 07:15 – 08:00 PM):</strong> Proteína magra (pollo/pescado/huevo) + verduras al vapor. Terminar antes de las 8:00 PM para asegurar 1 hora y media de digestión previa a dormir a las 9:00 PM.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ============================================== -->
+            <!-- NUEVA SECCIÓN COMPLETA: PROTOCOLO & GUÍA DE CENAS -->
+            <!-- ============================================== -->
+            <div class="glass-card p-5 sm:p-7 rounded-3xl space-y-5 border-2 border-indigo-200/70 bg-gradient-to-br from-indigo-50/30 via-white to-purple-50/30">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-indigo-100 pb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-600 text-white flex items-center justify-center text-2xl shadow-md shadow-indigo-500/20 shrink-0">
+                            🍲
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-0.5 rounded-full border border-indigo-200">
+                                Horario: 07:15 PM – 08:00 PM
+                            </span>
+                            <h3 class="font-display font-extrabold text-base sm:text-xl text-slate-800 mt-0.5">
+                                Protocolo de Cena Ligera & Reparadora para Yeny Ruth
+                            </h3>
+                            <p class="text-xs text-slate-500">
+                                La cena correcta garantiza conciliar el sueño a las 9:00 PM y activar el lavado cerebral nocturno (sistema glinfático).
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 bg-indigo-100/60 text-indigo-900 px-3 py-1.5 rounded-xl text-xs font-bold shrink-0">
+                        <span>⏰</span> <span>Terminar antes de las 8:00 PM</span>
+                    </div>
+                </div>
+
+                <!-- Timeline Horario Paso a Paso de la Cena & Noche -->
+                <div class="p-4 rounded-2xl bg-white border border-indigo-200/80 shadow-sm space-y-2.5">
+                    <div class="text-[11px] sm:text-xs font-bold text-indigo-800 uppercase tracking-wider flex items-center gap-1.5">
+                        <span>⏰</span> <span>Cronología Nocturna Exacta (Paso a Paso):</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-center text-xs">
+                        <div class="p-2.5 rounded-xl bg-indigo-50/80 border border-indigo-100 flex flex-col items-center justify-center">
+                            <span class="text-[11px] font-extrabold text-indigo-700 font-mono">07:15 PM</span>
+                            <span class="text-[11px] font-bold text-slate-800 mt-1">🥗 Servir Cena</span>
+                            <span class="text-[9px] text-slate-500 mt-0.5">Comida ligera</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-indigo-50/80 border border-indigo-100 flex flex-col items-center justify-center">
+                            <span class="text-[11px] font-extrabold text-indigo-700 font-mono">07:45 PM</span>
+                            <span class="text-[11px] font-bold text-slate-800 mt-1">🥣 Fin de Comida</span>
+                            <span class="text-[9px] text-slate-500 mt-0.5">Vaciado gástrico</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-indigo-50/80 border border-indigo-100 flex flex-col items-center justify-center">
+                            <span class="text-[11px] font-extrabold text-indigo-700 font-mono">08:00 PM</span>
+                            <span class="text-[11px] font-bold text-slate-800 mt-1">🫖 Té / Infusión</span>
+                            <span class="text-[9px] text-slate-500 mt-0.5">Manzanilla tibia</span>
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-pink-50/80 border border-pink-100 flex flex-col items-center justify-center">
+                            <span class="text-[11px] font-extrabold text-pink-700 font-mono">08:30 PM</span>
+                            <span class="text-[11px] font-bold text-slate-800 mt-1">📵 0 Pantallas</span>
+                            <span class="text-[9px] text-slate-500 mt-0.5">Melatonina alta</span>
+                        </div>
+                        <div class="col-span-2 sm:col-span-1 p-2.5 rounded-xl bg-purple-50/80 border border-purple-100 flex flex-col items-center justify-center">
+                            <span class="text-[11px] font-extrabold text-purple-700 font-mono">09:00 PM</span>
+                            <span class="text-[11px] font-bold text-slate-800 mt-1">🌙 A la Cama</span>
+                            <span class="text-[9px] text-slate-500 mt-0.5">8h sueño pleno</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4 Opciones de Menú Saludable para la Cena -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-display font-bold text-sm text-slate-800 flex items-center gap-2">
+                            <span>🍽️</span> 4 Opciones de Cenas Rápidas, Económicas y Ligeras:
+                        </h4>
+                        <span class="text-[10px] font-semibold text-slate-500 bg-white px-2 py-0.5 rounded-md border border-slate-200">
+                            Horario ideal: 07:15 – 07:45 PM
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                        
+                        <!-- Opción 1 -->
+                        <div class="p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-1.5 hover:border-emerald-300 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-xs text-emerald-700 flex items-center gap-1.5">
+                                    <span>🍗</span> Opción 1: Proteína Magra & Vapor
+                                </span>
+                                <span class="text-[10px] font-mono font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-1.5 py-0.5 rounded">07:15 PM</span>
+                            </div>
+                            <p class="text-xs text-slate-700 font-medium">
+                                Pechuga de pollo a la plancha con brócoli y zanahoria al vapor + chorrito de aceite de oliva virgen extra.
+                            </p>
+                            <span class="text-[10px] text-slate-400 block">
+                                💡 Tip: Rica en triptófano, aminoácido esencial para fabricar melatonina. Digestión rápida (45-60 min).
+                            </span>
+                        </div>
+
+                        <!-- Opción 2 -->
+                        <div class="p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-1.5 hover:border-emerald-300 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-xs text-amber-700 flex items-center gap-1.5">
+                                    <span>🍳</span> Opción 2: Omelette Verde Rápido
+                                </span>
+                                <span class="text-[10px] font-mono font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-1.5 py-0.5 rounded">07:15 PM</span>
+                            </div>
+                            <p class="text-xs text-slate-700 font-medium">
+                                Omelette de 2 huevos con espinacas picadas, champiñones o rodajas de tomate cocido.
+                            </p>
+                            <span class="text-[10px] text-slate-400 block">
+                                💡 Tip: La espinaca aporta magnesio que relaja el sistema muscular y nervioso. Preparación: 5 minutos.
+                            </span>
+                        </div>
+
+                        <!-- Opción 3 -->
+                        <div class="p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-1.5 hover:border-emerald-300 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-xs text-sky-700 flex items-center gap-1.5">
+                                    <span>🐟</span> Opción 3: Pescado / Atún con Ensalada Tibia
+                                </span>
+                                <span class="text-[10px] font-mono font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-1.5 py-0.5 rounded">07:15 PM</span>
+                            </div>
+                            <p class="text-xs text-slate-700 font-medium">
+                                Filete de pescado al vapor o atún en agua con vainitas cocidas y 1/4 de palta (aguacate).
+                            </p>
+                            <span class="text-[10px] text-slate-400 block">
+                                💡 Tip: Grasas saludables que nutren las membranas neuronales sin generar pesadez ni reflujo.
+                            </span>
+                        </div>
+
+                        <!-- Opción 4 -->
+                        <div class="p-3.5 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-1.5 hover:border-emerald-300 transition">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-xs text-purple-700 flex items-center gap-1.5">
+                                    <span>🥣</span> Opción 4: Crema Tibia de Calabaza / Zapallo
+                                </span>
+                                <span class="text-[10px] font-mono font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-1.5 py-0.5 rounded">07:15 PM</span>
+                            </div>
+                            <p class="text-xs text-slate-700 font-medium">
+                                Crema casera de zapallo o verduras con cubitos de queso fresco o pollo deshilachado.
+                            </p>
+                            <span class="text-[10px] text-slate-400 block">
+                                💡 Tip: Calienta el cuerpo y propicia el descenso natural de la temperatura corporal para dormir a las 9:00 PM.
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Reglas de Oro & Qué Evitar en la Cena -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-2">
+                    <!-- Permitido e infusión -->
+                    <div class="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200 space-y-2 text-xs">
+                        <div class="font-bold text-emerald-800 flex items-center gap-2">
+                            <span>🫖</span> Infusión Relajante Recomendada (8:00 PM):
+                        </div>
+                        <p class="text-emerald-950 leading-relaxed text-[11px] sm:text-xs">
+                            Una taza tibia de <strong>manzanilla, toronjil o tilo</strong> (sin azúcar ni miel en exceso). Calma el nervio vago y le avisa al cerebro que la jornada ha terminado.
+                        </p>
+                    </div>
+
+                    <!-- Prohibido -->
+                    <div class="p-3.5 rounded-2xl bg-rose-50/70 border border-rose-200 space-y-2 text-xs">
+                        <div class="font-bold text-rose-800 flex items-center gap-2">
+                            <span>🚫</span> Qué EVITAR en la noche (Enemigos del Sueño):
+                        </div>
+                        <ul class="text-rose-950 space-y-1 text-[11px] list-disc list-inside">
+                            <li><strong>Frituras y grasas pesadas:</strong> Retrasan el vaciado gástrico más de 4 horas.</li>
+                            <li><strong>Café o té negro después de las 2:00 PM:</strong> Bloquean receptores de adenosina.</li>
+                            <li><strong>Ají o condimentos picantes:</strong> Causan reflujo y micro-despertares nocturnos.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- VISTA 3: NEUROCIENCIA & HACKS DE NICOLE VIGNOLA -->
+        <!-- ======================================================== -->
+        <div id="view-neuro" class="content-view hidden space-y-4 sm:space-y-6 flex-1">
+            <div class="glass-card p-4 sm:p-6 rounded-3xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-amber-500/10 border-purple-200">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-purple-500 to-pink-500 text-white flex items-center justify-center text-xl sm:text-2xl shrink-0 shadow-md shadow-purple-500/20">
+                        🧠
+                    </div>
+                    <div>
+                        <div class="text-[10px] uppercase font-extrabold tracking-wider text-purple-700">BBVA Aprendemos Juntos</div>
+                        <h3 class="font-display font-extrabold text-sm sm:text-base text-slate-800">
+                            "Los hábitos que creas hoy, determinarán quién serás"
+                        </h3>
+                        <p class="text-[11px] text-slate-500">Por Nicole Vignola (Neurocientífica y autora bestseller)</p>
+                    </div>
+                </div>
+                <a href="https://www.youtube.com/watch?v=X30i8UscZoA" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto text-center px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition flex items-center justify-center gap-2 shrink-0 shadow-md shadow-purple-600/20">
+                    <span>Ver Video en YouTube</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                </a>
+            </div>
+
+            <!-- 4 Leyes Neurocientíficas Fundamentales -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+                <div class="glass-card p-4 sm:p-5 rounded-3xl space-y-1.5 border-l-4 border-l-amber-400">
+                    <div class="flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase text-amber-700">
+                        <span>🌅</span> 1. Ley de Protección Dopaminérgica
+                    </div>
+                    <h4 class="font-display font-bold text-slate-800 text-xs sm:text-sm">05:00 AM • 0 Celular los Primeros 30 Minutos</h4>
+                    <p class="text-[11px] sm:text-xs text-slate-600 leading-relaxed">
+                        Yeny Ruth, al levantarte tu cerebro transiciona de ondas Theta a Alpha. Mirar redes sociales nada más despertar inunda la amígdala con cortisol y dispersa tu dopamina antes de tus clases de las 7:00 AM.
+                    </p>
+                </div>
+
+                <div class="glass-card p-4 sm:p-5 rounded-3xl space-y-1.5 border-l-4 border-l-teal-400">
+                    <div class="flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase text-teal-700">
+                        <span>🚶‍♀️</span> 2. Ley del Flujo Óptico Bilateral
+                    </div>
+                    <h4 class="font-display font-bold text-slate-800 text-xs sm:text-sm">01:45 PM • Caminata de Retorno a Casa</h4>
+                    <p class="text-[11px] sm:text-xs text-slate-600 leading-relaxed">
+                        Al regresar a pie desde el campus, el movimiento lateral de los ojos al escanear el entorno reduce la actividad de la amígdala cerebral, disipando la tensión mental acumulada durante 6 horas de clase.
+                    </p>
+                </div>
+
+                <div class="glass-card p-4 sm:p-5 rounded-3xl space-y-1.5 border-l-4 border-l-orange-400">
+                    <div class="flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase text-orange-700">
+                        <span>💪</span> 3. Ley de la Neuroplasticidad por BDNF
+                    </div>
+                    <h4 class="font-display font-bold text-slate-800 text-xs sm:text-sm">04:00 PM • Actividad Física Sistemática</h4>
+                    <p class="text-[11px] sm:text-xs text-slate-600 leading-relaxed">
+                        El ejercicio de 4:00 a 5:00 PM detona la secreción de Factor Neurotrófico (BDNF). Gracias a esto, el bloque de <strong>Estudio Profundo de 5:15 a 7:15 PM</strong> memoriza conceptos en la mitad del tiempo ordinario.
+                    </p>
+                </div>
+
+                <div class="glass-card p-4 sm:p-5 rounded-3xl space-y-1.5 border-l-4 border-l-purple-400">
+                    <div class="flex items-center gap-2 text-[10px] sm:text-xs font-bold uppercase text-purple-700">
+                        <span>🌙</span> 4. Ley del Lavado Glinfático Nocturno
+                    </div>
+                    <h4 class="font-display font-bold text-slate-800 text-xs sm:text-sm">09:00 PM • 8 Horas de Sueño Ininterrumpido</h4>
+                    <p class="text-[11px] sm:text-xs text-slate-600 leading-relaxed">
+                        Al acostarte a las 9:00 PM en punto hasta las 5:00 AM, completas 5 ciclos de sueño REM y no-REM. El sistema glinfático limpia las toxinas metabólicas y el hipocampo consolida tus materias en la memoria a largo plazo.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- VISTA 4: METAS & SEMESTRE -->
+        <!-- ======================================================== -->
+        <div id="view-metas" class="content-view hidden space-y-4 sm:space-y-6 flex-1">
+            <div class="p-4 sm:p-5 rounded-3xl bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-teal-500/10 border border-emerald-300">
+                <h3 class="font-display font-extrabold text-base sm:text-lg text-slate-800">
+                    🌟 El Semestre Exitoso de Yeny Ruth Afaraya Huancco
+                </h3>
+                <p class="text-[11px] sm:text-xs text-slate-600 mt-1">
+                    Cada hábito cumplido consolida tu identidad de estudiante universitaria disciplinada, saludable y de alto rendimiento.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4">
+                <div class="glass-card p-4 sm:p-6 rounded-3xl space-y-2 sm:space-y-3">
+                    <div class="text-[10px] sm:text-xs font-bold text-amber-600 uppercase tracking-wider">Cuenta Regresiva</div>
+                    <div class="text-3xl sm:text-4xl font-display font-extrabold text-slate-800">
+                        <span id="settingsDaysRemaining">--</span> días
+                    </div>
+                    <p class="text-[11px] sm:text-xs text-slate-500">Para culminar tu ciclo universitario con honores.</p>
+                    <button onclick="editSemesterGoal()" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 underline block pt-1">
+                        Cambiar fecha fin de semestre →
+                    </button>
+                </div>
+
+                <div class="glass-card p-4 sm:p-6 rounded-3xl space-y-2 sm:space-y-3">
+                    <div class="text-[10px] sm:text-xs font-bold text-purple-600 uppercase tracking-wider">Circuito Neuronal</div>
+                    <div class="text-3xl sm:text-4xl font-display font-extrabold text-purple-600 flex items-center gap-2">
+                        <span>🔥</span> <span id="settingsStreakDays">3</span> días
+                    </div>
+                    <p class="text-[11px] sm:text-xs text-slate-500">¡Felicitaciones Yeny Ruth por tu constancia!</p>
+                </div>
+
+                <div class="glass-card p-4 sm:p-6 rounded-3xl space-y-2.5 sm:space-y-3 flex flex-col justify-between">
+                    <div>
+                        <div class="text-[10px] sm:text-xs font-bold text-emerald-600 uppercase tracking-wider">Celebración</div>
+                        <h4 class="font-display font-bold text-sm sm:text-base text-slate-800 mt-1">¡Recompénsate!</h4>
+                        <p class="text-[11px] sm:text-xs text-slate-500 mt-1">Celebra cada pequeño logro de tu rutina diaria.</p>
+                    </div>
+                    <button onclick="showPersonalCongrats()" class="py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold text-xs shadow-md shadow-emerald-500/20 active:scale-95 transition">
+                        Ver Mis Felicitaciones 🎉
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="pt-4 mt-6 border-t border-slate-200/50 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 gap-2">
+            <div class="text-center sm:text-left">
+                Diseñado exclusivamente para <strong>Yeny Ruth Afaraya Huancco</strong> • NeuroRutina 2026
+            </div>
+            <div class="hidden sm:flex items-center gap-3">
+                <button onclick="switchView('horario')" class="hover:text-slate-600">Horario (14 Bloques)</button>
+                <span>•</span>
+                <button onclick="switchView('nutricion')" class="hover:text-slate-600">Nutrición & Cenas</button>
+                <span>•</span>
+                <button onclick="switchView('neuro')" class="hover:text-slate-600">Neurociencia</button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ============================================== -->
+    <!-- BARRA FLOTANTE INFERIOR (MOBILE BOTTOM DOCK) -->
+    <!-- ============================================== -->
+    <nav class="flex md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-xl border-t border-slate-200/90 px-2 py-1.5 pb-[max(0.5rem,env(safe-area-inset-bottom))] justify-around shadow-2xl">
+        <button onclick="switchView('horario')" id="mobile-nav-horario" class="mobile-nav-btn active flex-1 py-1 flex flex-col items-center justify-center text-slate-500 transition-all">
+            <div class="icon-pill w-10 h-7 rounded-xl flex items-center justify-center transition-all">
+                <span class="text-base">⏰</span>
+            </div>
+            <span class="text-[10px] font-bold mt-0.5">Horario</span>
+        </button>
+
+        <button onclick="switchView('nutricion')" id="mobile-nav-nutricion" class="mobile-nav-btn flex-1 py-1 flex flex-col items-center justify-center text-slate-500 transition-all">
+            <div class="icon-pill w-10 h-7 rounded-xl flex items-center justify-center transition-all">
+                <span class="text-base">🥗</span>
+            </div>
+            <span class="text-[10px] font-bold mt-0.5">Cenas & Agua</span>
+        </button>
+
+        <button onclick="switchView('neuro')" id="mobile-nav-neuro" class="mobile-nav-btn flex-1 py-1 flex flex-col items-center justify-center text-slate-500 transition-all">
+            <div class="icon-pill w-10 h-7 rounded-xl flex items-center justify-center transition-all">
+                <span class="text-base">🧠</span>
+            </div>
+            <span class="text-[10px] font-bold mt-0.5">Neuro</span>
+        </button>
+
+        <button onclick="switchView('metas')" id="mobile-nav-metas" class="mobile-nav-btn flex-1 py-1 flex flex-col items-center justify-center text-slate-500 transition-all">
+            <div class="icon-pill w-10 h-7 rounded-xl flex items-center justify-center transition-all">
+                <span class="text-base">🎯</span>
+            </div>
+            <span class="text-[10px] font-bold mt-0.5">Metas</span>
+        </button>
+    </nav>
+
+    <!-- JAVASCRIPT ENGINE CON RESUELTOS BUGS Y AUTO-RESET -->
+    <script>
+        const FULL_NAME = "Yeny Ruth Afaraya Huancco";
+        const FIRST_NAME = "Yeny Ruth";
+
+        // 14 BLOQUES EXACTOS Y COMPLETOS DEL PLAN OFICIAL (.DOCX)
+        const SCHEDULE_DATA = [
+            {
+                id: 'wake_5am',
+                time: '05:00 – 05:40 AM',
+                title: 'Despertar Neuroactivo & Activación',
+                detail: 'Vaso de agua (500 ml) + luz natural en los ojos. 📵 Cero celular los primeros 30 minutos.',
+                icon: '🌅',
+                badge: 'Despertar',
+                badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
+                hourStart: 5, minuteStart: 0, hourEnd: 5, minuteEnd: 40
+            },
+            {
+                id: 'prep_morning',
+                time: '05:40 – 06:20 AM',
+                title: 'Aseo, Vestimenta & Mochila Armada',
+                detail: 'Ducha revitalizante, ropa lista y verificación de mochila (tomatodo lleno y snack saludable).',
+                icon: '🎒',
+                badge: 'Preparación',
+                badgeColor: 'bg-sky-100 text-sky-800 border-sky-200',
+                hourStart: 5, minuteStart: 40, hourEnd: 6, minuteEnd: 20
+            },
+            {
+                id: 'commute_u',
+                time: '06:20 – 06:50 AM',
+                title: 'Traslado a la Universidad',
+                detail: 'Viaje seguro hacia el campus universitario con tiempo de anticipación para evitar estrés.',
+                icon: '🚌',
+                badge: 'Traslado',
+                badgeColor: 'bg-blue-100 text-blue-800 border-blue-200',
+                hourStart: 6, minuteStart: 20, hourEnd: 6, minuteEnd: 50
+            },
+            {
+                id: 'breakfast_650',
+                time: '06:50 – 07:05 AM',
+                title: 'Desayuno en el Comedor U',
+                detail: 'Proteína completa (huevo, avena, queso o leche). Guarda tu fruta para media mañana (10:00 AM).',
+                foodTags: ['🥚 Huevo / Queso', '🥣 Avena o Leche', '🍎 Fruta snack 10AM'],
+                icon: '🥣',
+                badge: 'Desayuno U',
+                badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
+                hourStart: 6, minuteStart: 50, hourEnd: 7, minuteEnd: 0
+            },
+            {
+                id: 'classes_block',
+                time: '07:00 AM – 01:00 PM',
+                title: 'Clases Universitarias (Bloque Central)',
+                detail: 'Tomatodo en mano: sorbos continuos de agua cada 45 min. Merienda con tu fruta a las 10:00 AM.',
+                icon: '🎓',
+                badge: 'Universidad',
+                badgeColor: 'bg-indigo-100 text-indigo-800 border-indigo-200',
+                hourStart: 7, minuteStart: 0, hourEnd: 13, minuteEnd: 0
+            },
+            {
+                id: 'lunch_1pm',
+                time: '01:00 – 01:45 PM',
+                title: 'Almuerzo en el Comedor U',
+                detail: 'Come toda la ensalada y verduras PRIMERO. La fibra aplanará la curva de glucosa y evitará sueño.',
+                foodTags: ['🥗 Ensalada primero', '🥕 Verduras cocidas', '🍗 Proteína comedor'],
+                icon: '🍽️',
+                badge: 'Almuerzo U',
+                badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+                hourStart: 13, minuteStart: 0, hourEnd: 13, minuteEnd: 45
+            },
+            {
+                id: 'walk_home',
+                time: '01:45 – 02:30 PM',
+                title: 'Caminata de Retorno a Casa',
+                detail: 'Regreso a pie. El flujo óptico bilateral al mirar el entorno calma la amígdala cerebral y desestresa.',
+                icon: '🌿',
+                badge: 'Flujo Óptico',
+                badgeColor: 'bg-teal-100 text-teal-800 border-teal-200',
+                hourStart: 13, minuteStart: 45, hourEnd: 14, minuteEnd: 30
+            },
+            {
+                id: 'power_nap',
+                time: '02:30 – 03:45 PM',
+                title: 'Descanso Cognitivo o Power Nap (20 min)',
+                detail: 'Descompresión mental tras las clases. Si hay fatiga mental, siesta reparadora de máximo 20 minutos.',
+                icon: '🛋️',
+                badge: 'Descompresión',
+                badgeColor: 'bg-cyan-100 text-cyan-800 border-cyan-200',
+                hourStart: 14, minuteStart: 30, hourEnd: 15, minuteEnd: 45
+            },
+            {
+                id: 'workout_4pm',
+                time: '04:00 – 05:00 PM',
+                title: 'Actividad Física Sistemática',
+                detail: 'Hora sagrada de ejercicio (fuerza o cardio). Dispara la proteína BDNF para oxigenar tu cerebro.',
+                icon: '💪',
+                badge: 'Fitness BDNF',
+                badgeColor: 'bg-orange-100 text-orange-800 border-orange-200',
+                hourStart: 16, minuteStart: 0, hourEnd: 17, minuteEnd: 0
+            },
+            {
+                id: 'study_deep',
+                time: '05:15 – 07:15 PM',
+                title: 'Estudio Profundo Universitario',
+                detail: 'Repaso y tareas con enfoque total sin distracciones ni celular. Tu cerebro retiene el doble gracias al ejercicio.',
+                icon: '📚',
+                badge: 'Estudio Profundo',
+                badgeColor: 'bg-purple-100 text-purple-800 border-purple-200',
+                hourStart: 17, minuteStart: 15, hourEnd: 19, minuteEnd: 15
+            },
+            {
+                id: 'dinner_light',
+                time: '07:15 – 08:00 PM',
+                title: 'Cena Ligera & Reparadora (Comida Oficial)',
+                detail: 'Proteína magra + verduras al vapor. Cenar de 7:15 a 7:45 PM y terminar antes de las 8:00 PM para asegurar 1.5h de digestión previa a dormir.',
+                foodTags: ['🍗 Pollo al vapor', '🍳 Omelette verde', '🐟 Pescado/Atún', '🥣 Crema zapallo', '🫖 Manzanilla 8PM'],
+                hasNutritionLink: true,
+                icon: '🍲',
+                badge: 'CENA OFICIAL',
+                badgeColor: 'bg-rose-200 text-rose-900 border-rose-300 font-extrabold',
+                hourStart: 19, minuteStart: 15, hourEnd: 20, minuteEnd: 0
+            },
+            {
+                id: 'prep_night',
+                time: '08:00 – 08:30 PM',
+                title: 'Fricción Cero (Preparación de Mañana)',
+                detail: 'Dejar lista la ropa para mañana, mochila armada y tomatodo limpio y lleno. Infusión tibia de manzanilla.',
+                icon: '✨',
+                badge: 'Fricción Cero',
+                badgeColor: 'bg-violet-100 text-violet-800 border-violet-200',
+                hourStart: 20, minuteStart: 0, hourEnd: 20, minuteEnd: 30
+            },
+            {
+                id: 'disconnect_screens',
+                time: '08:30 – 09:00 PM',
+                title: 'Desconexión Total de Pantallas',
+                detail: '📵 Apagar celular y ordenador 30 min antes. Lectura en papel o estiramiento para que suba la melatonina.',
+                icon: '📵',
+                badge: 'Higiene del Sueño',
+                badgeColor: 'bg-pink-100 text-pink-800 border-pink-200',
+                hourStart: 20, minuteStart: 30, hourEnd: 21, minuteEnd: 0
+            },
+            {
+                id: 'sleep_9pm',
+                time: '09:00 PM – 05:00 AM',
+                title: 'Dormir a las 9:00 PM (8h de Sueño Pleno)',
+                detail: 'A la cama a las 9:00 PM en punto para 8 horas exactas de lavado cerebral glinfático y memoria a largo plazo.',
+                icon: '🌙',
+                badge: 'Descanso 8h',
+                badgeColor: 'bg-indigo-100 text-indigo-800 border-indigo-200',
+                hourStart: 21, minuteStart: 0, hourEnd: 5, minuteEnd: 0
+            }
+        ];
+
+        const FOOD_TARGETS = [
+            { id: 0, icon: '🍎', label: 'Fruta 1', detail: 'Desayuno U' },
+            { id: 1, icon: '🍌', label: 'Fruta 2', detail: 'Media mañana (10:00)' },
+            { id: 2, icon: '🥗', label: 'Verdura 1', detail: 'Ensalada Comedor' },
+            { id: 3, icon: '🥕', label: 'Verdura 2', detail: 'Almuerzo Comedor' },
+            { id: 4, icon: '🥦', label: 'Verdura 3', detail: 'Cena Ligera (19:15)' }
+        ];
+
+        const DB_KEY = 'yeny_ruth_neurorutina_state';
+
+        let app = JSON.parse(localStorage.getItem(DB_KEY)) || {
+            semesterEndDate: '2026-12-18',
+            completedSchedule: {},
+            waterGlasses: 0,
+            foodPortions: [false, false, false, false, false],
+            streak: 3,
+            isMuted: false,
+            currentView: 'horario',
+            congratsShownToday: false,
+            lastActiveDate: ''
+        };
+
+        // Reseteo automático cada nuevo día
+        function checkDailyReset() {
+            const todayStr = new Date().toISOString().slice(0, 10);
+            if (!app.lastActiveDate) {
+                app.lastActiveDate = todayStr;
+                persist();
+                return;
+            }
+
+            if (app.lastActiveDate !== todayStr) {
+                // Nuevo día detectado: evaluamos si completó ayer
+                const yesterdayScore = calculateCompletionPercent();
+                if (yesterdayScore >= 75) {
+                    app.streak = (app.streak || 0) + 1;
+                }
+                
+                // Reiniciamos marcas del día
+                app.completedSchedule = {};
+                app.waterGlasses = 0;
+                app.foodPortions = [false, false, false, false, false];
+                app.congratsShownToday = false;
+                app.lastActiveDate = todayStr;
+                persist();
+            }
+        }
+
+        function persist() {
+            localStorage.setItem(DB_KEY, JSON.stringify(app));
+            updateOverallProgress();
+        }
+
+        function calculateCompletionPercent() {
+            const total = SCHEDULE_DATA.length + 2;
+            let done = 0;
+            SCHEDULE_DATA.forEach(item => {
+                if (app.completedSchedule[item.id]) done++;
+            });
+            if (app.waterGlasses >= 8) done++;
+            const foodCount = (app.foodPortions || []).filter(Boolean).length;
+            if (foodCount >= 5) done++;
+            return Math.min(100, Math.round((done / total) * 100));
+        }
+
+        // Navegación Sincronizada (Desktop Sidebar & Mobile Bottom Dock)
+        function switchView(viewName) {
+            app.currentView = viewName;
+            persist();
+
+            const views = ['horario', 'nutricion', 'neuro', 'metas'];
+            views.forEach(v => {
+                const el = document.getElementById(`view-${v}`);
+                const deskBtn = document.getElementById(`nav-${v}`);
+                const mobileBtn = document.getElementById(`mobile-nav-${v}`);
+
+                if (el) {
+                    if (v === viewName) {
+                        el.classList.remove('hidden');
+                    } else {
+                        el.classList.add('hidden');
+                    }
+                }
+                if (deskBtn) {
+                    if (v === viewName) deskBtn.classList.add('active');
+                    else deskBtn.classList.remove('active');
+                }
+                if (mobileBtn) {
+                    if (v === viewName) mobileBtn.classList.add('active');
+                    else mobileBtn.classList.remove('active');
+                }
+            });
+
+            const titleMap = {
+                'horario': 'Mi Horario Completo (Rutina de 8 Horas de Sueño)',
+                'nutricion': 'Nutrición, Comedor U & Guía de Cenas Saludables',
+                'neuro': 'Neurociencia de Hábitos (Nicole Vignola)',
+                'metas': `Metas de ${FIRST_NAME}`
+            };
+            document.getElementById('headerSectionTitle').innerText = titleMap[viewName] || 'Dashboard';
+
+            const mainEl = document.getElementById('mainContentScroll');
+            if (mainEl) mainEl.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        let currentScheduleFilter = 'all';
+
+        function filterSchedule(cat) {
+            currentScheduleFilter = cat;
+            document.querySelectorAll('.schedule-filter-btn').forEach(btn => {
+                btn.classList.remove('bg-slate-800', 'text-white');
+                btn.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+            });
+            const activeBtn = document.getElementById(`filter-${cat}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-white', 'text-slate-700', 'border-slate-200');
+                activeBtn.classList.add('bg-slate-800', 'text-white');
+            }
+            renderScheduleCards();
+        }
+
+        // Renderizado del Horario (14 Bloques Oficiales)
+        function renderScheduleCards() {
+            const container = document.getElementById('scheduleCardsGrid');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const now = new Date();
+            const totalMinutesNow = now.getHours() * 60 + now.getMinutes();
+
+            const itemsToRender = SCHEDULE_DATA.filter(item => {
+                if (currentScheduleFilter === 'all') return true;
+                if (currentScheduleFilter === 'comidas') {
+                    return item.id === 'breakfast_650' || item.id === 'lunch_1pm' || item.id === 'dinner_light';
+                }
+                if (currentScheduleFilter === 'universidad') {
+                    return item.id === 'commute_u' || item.id === 'classes_block' || item.id === 'walk_home' || item.id === 'study_deep';
+                }
+                if (currentScheduleFilter === 'noche') {
+                    return item.id === 'dinner_light' || item.id === 'prep_night' || item.id === 'disconnect_screens' || item.id === 'sleep_9pm';
+                }
+                return true;
+            });
+
+            itemsToRender.forEach(item => {
+                const isChecked = !!app.completedSchedule[item.id];
+                const startMins = item.hourStart * 60 + item.minuteStart;
+                const endMins = item.hourEnd * 60 + item.minuteEnd;
+                
+                // Determinar si es la actividad activa ahora mismo
+                let isCurrentNow = false;
+                if (startMins < endMins) {
+                    isCurrentNow = totalMinutesNow >= startMins && totalMinutesNow < endMins;
+                } else {
+                    isCurrentNow = totalMinutesNow >= startMins || totalMinutesNow < endMins;
+                }
+
+                const isDinner = item.id === 'dinner_light';
+
+                const card = document.createElement('div');
+                card.id = `card-${item.id}`;
+                card.className = `glass-card p-3.5 sm:p-5 rounded-3xl cursor-pointer flex items-start justify-between gap-3 transition-all ${
+                    isChecked ? 'bg-emerald-50/90 border-emerald-300' : (isDinner ? 'border-rose-300 bg-rose-50/20 hover:border-rose-400' : 'hover:border-slate-300')
+                } ${isCurrentNow ? 'current-active-card ring-2 ring-emerald-500 bg-white' : ''}`;
+                card.onclick = () => toggleSchedule(item.id);
+
+                card.innerHTML = `
+                    <div class="flex items-start gap-3 flex-1">
+                        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-white border border-slate-100 flex items-center justify-center text-lg sm:text-xl shadow-sm shrink-0 mt-0.5">
+                            ${item.icon}
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-1.5 sm:gap-2 mb-1 flex-wrap">
+                                <span class="font-mono text-[10px] sm:text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-lg">
+                                    ${item.time}
+                                </span>
+                                <span class="text-[9px] sm:text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-md border ${item.badgeColor}">
+                                    ${item.badge}
+                                </span>
+                                ${isCurrentNow ? '<span class="text-[9px] font-extrabold uppercase px-1.5 py-0.5 rounded-md bg-emerald-500 text-white animate-pulse">EN VIVO</span>' : ''}
+                            </div>
+                            <h4 class="text-xs sm:text-sm font-bold text-slate-800 ${isChecked ? 'line-through text-slate-400' : ''}">
+                                ${item.title}
+                            </h4>
+                            <p class="text-[11px] sm:text-xs text-slate-500 mt-1 leading-relaxed">
+                                ${item.detail}
+                            </p>
+                            ${item.foodTags ? `
+                                <div class="flex flex-wrap gap-1 mt-2">
+                                    ${item.foodTags.map(tag => `<span class="text-[9px] font-semibold bg-rose-50 text-rose-800 border border-rose-200 px-1.5 py-0.5 rounded-md">${tag}</span>`).join('')}
+                                </div>
+                            ` : ''}
+                            ${item.hasNutritionLink ? `
+                                <div class="mt-2.5">
+                                    <button onclick="event.stopPropagation(); switchView('nutricion')" class="text-[10px] font-bold text-indigo-600 hover:text-indigo-800 underline flex items-center gap-1">
+                                        👉 Ver recetas y cronología completa en Nutrición →
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-xl border-2 flex items-center justify-center shrink-0 transition-all ${
+                        isChecked 
+                            ? 'bg-emerald-500 border-emerald-500 text-white shadow-md shadow-emerald-500/25 scale-105' 
+                            : 'border-slate-300 bg-slate-50 hover:border-emerald-400'
+                    }">
+                        ${isChecked ? '<svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>' : ''}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function toggleSchedule(id) {
+            app.completedSchedule[id] = !app.completedSchedule[id];
+            if (app.completedSchedule[id]) playSound('check');
+            persist();
+            renderScheduleCards();
+        }
+
+        // Renderizado Agua
+        function renderWaterControls() {
+            const grid = document.getElementById('interactiveGlassesGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            for (let i = 0; i < 8; i++) {
+                const filled = i < app.waterGlasses;
+                const btn = document.createElement('button');
+                btn.className = `p-2 rounded-xl border flex flex-col items-center justify-center transition-all ${
+                    filled ? 'bg-sky-500 border-sky-400 text-white shadow-sm' : 'bg-white border-sky-200 text-slate-300 hover:border-sky-400'
+                }`;
+                btn.onclick = () => setWaterGlasses(i + 1);
+                btn.innerHTML = `<span class="text-sm sm:text-base">💧</span><span class="text-[8px] sm:text-[9px] font-bold mt-0.5">${(i+1)*250} ml</span>`;
+                grid.appendChild(btn);
+            }
+
+            const totalMl = app.waterGlasses * 250;
+            const percent = Math.min(100, Math.round((app.waterGlasses / 8) * 100));
+
+            const waterMlEl = document.getElementById('waterLargeMl');
+            if (waterMlEl) waterMlEl.innerText = `${totalMl} ml`;
+            const waterGlassesEl = document.getElementById('waterLargeGlasses');
+            if (waterGlassesEl) waterGlassesEl.innerText = `${app.waterGlasses} / 8 vasos`;
+            const liquidEl = document.getElementById('largeWaterLiquid');
+            if (liquidEl) liquidEl.style.height = `${percent}%`;
+            const percentEl = document.getElementById('largeWaterPercent');
+            if (percentEl) percentEl.innerText = `${percent}%`;
+            
+            const badge = document.getElementById('navWaterBadge');
+            if (badge) badge.innerText = `${totalMl} ml`;
+        }
+
+        function setWaterGlasses(amount) {
+            if (app.waterGlasses === amount) {
+                app.waterGlasses = amount - 1;
+            } else {
+                app.waterGlasses = amount;
+                playSound('water');
+            }
+            persist();
+            renderWaterControls();
+        }
+
+        function quickAddWater() {
+            if (app.waterGlasses < 8) {
+                app.waterGlasses++;
+                playSound('water');
+                persist();
+                renderWaterControls();
+            }
+        }
+
+        // Frutas y Verduras
+        function renderFoodPills() {
+            const container = document.getElementById('nutritionFoodPills');
+            if (!container) return;
+            container.innerHTML = '';
+            let count = 0;
+
+            FOOD_TARGETS.forEach((item, idx) => {
+                const active = !!(app.foodPortions && app.foodPortions[idx]);
+                if (active) count++;
+
+                const btn = document.createElement('button');
+                btn.className = `p-2.5 sm:p-3 rounded-2xl border text-center transition-all flex flex-col items-center justify-center ${
+                    active ? 'bg-emerald-50 border-emerald-400 text-emerald-900 shadow-sm font-bold' : 'bg-white border-slate-200 text-slate-600 hover:border-emerald-300'
+                }`;
+                btn.onclick = () => toggleFoodPortion(idx);
+                btn.innerHTML = `
+                    <span class="text-xl sm:text-2xl">${item.icon}</span>
+                    <span class="text-[10px] sm:text-[11px] font-bold mt-1 text-slate-800">${item.label}</span>
+                    <span class="text-[8px] sm:text-[9px] text-slate-400">${item.detail}</span>
+                    <span class="text-[9px] mt-1 ${active ? 'text-emerald-600 font-extrabold' : 'text-slate-300'}">
+                        ${active ? '✓ Lista' : '+ Marcar'}
+                    </span>
+                `;
+                container.appendChild(btn);
+            });
+
+            const foodBadge = document.getElementById('foodTotalScoreBadge');
+            if (foodBadge) foodBadge.innerText = `${count} / 5 hoy`;
+        }
+
+        function toggleFoodPortion(idx) {
+            if (!app.foodPortions) app.foodPortions = [false, false, false, false, false];
+            app.foodPortions[idx] = !app.foodPortions[idx];
+            playSound('check');
+            persist();
+            renderFoodPills();
+        }
+
+        // Progreso Global
+        function updateOverallProgress() {
+            const percent = calculateCompletionPercent();
+            const bar = document.getElementById('topProgressBar');
+            if (bar) bar.style.width = `${percent}%`;
+            const text = document.getElementById('topProgressText');
+            if (text) text.innerText = `${percent}%`;
+
+            if (percent === 100 && !app.congratsShownToday) {
+                app.congratsShownToday = true;
+                showPersonalCongrats();
+            } else if (percent < 100) {
+                app.congratsShownToday = false;
+            }
+        }
+
+        function showPersonalCongrats() {
+            document.getElementById('congratsModal').classList.remove('hidden');
+            triggerConfettiManual();
+            playSound('fanfare');
+        }
+
+        function closeCongratsModal() {
+            document.getElementById('congratsModal').classList.add('hidden');
+        }
+
+        // Cuenta regresiva calculada en hora local (evita desfase de 1 día)
+        function calculateSemesterDays() {
+            const dateParts = (app.semesterEndDate || '2026-12-18').split('-');
+            const end = new Date(parseInt(dateParts[0]), parseInt(dateParts[1]) - 1, parseInt(dateParts[2]), 23, 59, 59);
+            const now = new Date();
+            const diff = Math.ceil((end - now) / (1000 * 60 * 60 * 24));
+            const days = diff > 0 ? diff : 0;
+
+            const sb = document.getElementById('sidebarDaysRemaining');
+            if (sb) sb.innerText = days;
+            const stg = document.getElementById('settingsDaysRemaining');
+            if (stg) stg.innerText = days;
+            
+            const st = document.getElementById('sidebarStreak');
+            if (st) st.innerText = app.streak || 3;
+            const stgStreak = document.getElementById('settingsStreakDays');
+            if (stgStreak) stgStreak.innerText = app.streak || 3;
+
+            const mobStreak = document.getElementById('mobileStreakCount');
+            if (mobStreak) mobStreak.innerText = app.streak || 3;
+        }
+
+        function editSemesterGoal() {
+            const input = prompt("Fecha estimada de fin de semestre (formato YYYY-MM-DD):", app.semesterEndDate);
+            if (input && !isNaN(Date.parse(input))) {
+                app.semesterEndDate = input;
+                persist();
+                calculateSemesterDays();
+            }
+        }
+
+        function resetDayAction() {
+            if (confirm("¿Deseas reiniciar los hábitos marcados para comenzar un nuevo día, Yeny Ruth?")) {
+                app.completedSchedule = {};
+                app.waterGlasses = 0;
+                app.foodPortions = [false, false, false, false, false];
+                app.congratsShownToday = false;
+                persist();
+                renderScheduleCards();
+                renderWaterControls();
+                renderFoodPills();
+            }
+        }
+
+        // Detección en Tiempo Real Sin Bugs (Compara minutos totales con exactitud)
+        function updateLiveActivityCheck() {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMin = now.getMinutes();
+            const totalMinutesNow = currentHour * 60 + currentMin;
+
+            const greetingEl = document.getElementById('headerGreeting');
+            if (greetingEl) {
+                if (currentHour >= 5 && currentHour < 12) {
+                    greetingEl.innerText = `¡Buenos días, ${FULL_NAME}! ✨`;
+                } else if (currentHour >= 12 && currentHour < 19) {
+                    greetingEl.innerText = `¡Buenas tardes, ${FULL_NAME}! 🌿`;
+                } else {
+                    greetingEl.innerText = `¡Buenas noches, ${FULL_NAME}! 🌙`;
+                }
+            }
+
+            let currentAct = 'Tiempo libre / Repaso personal';
+
+            SCHEDULE_DATA.forEach(item => {
+                const startMins = item.hourStart * 60 + item.minuteStart;
+                const endMins = item.hourEnd * 60 + item.minuteEnd;
+
+                if (startMins < endMins) {
+                    // Intervalo normal dentro del mismo día
+                    if (totalMinutesNow >= startMins && totalMinutesNow < endMins) {
+                        currentAct = `${item.time} — ${item.title}`;
+                    }
+                } else {
+                    // Intervalo nocturno que cruza la medianoche (21:00 PM a 05:00 AM)
+                    if (totalMinutesNow >= startMins || totalMinutesNow < endMins) {
+                        currentAct = `${item.time} — ${item.title}`;
+                    }
+                }
+            });
+
+            const liveActEl = document.getElementById('currentLiveActivityName');
+            if (liveActEl) liveActEl.innerText = currentAct;
+            
+            const liveClock = document.getElementById('sidebarLiveClock');
+            if (liveClock) liveClock.innerText = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(() => {});
+            } else {
+                if (document.exitFullscreen) document.exitFullscreen();
+            }
+        }
+
+        // AudioContext Lazy-Loaded (Previene advertencias de consola en navegadores modernos)
+        let audioCtxInstance = null;
+        function getAudioContext() {
+            try {
+                if (!audioCtxInstance && (window.AudioContext || window.webkitAudioContext)) {
+                    audioCtxInstance = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtxInstance && audioCtxInstance.state === 'suspended') {
+                    audioCtxInstance.resume();
+                }
+            } catch (e) {
+                console.warn('AudioContext warning:', e);
+            }
+            return audioCtxInstance;
+        }
+
+        function playSound(type = 'check') {
+            if (app.isMuted) return;
+            const ctx = getAudioContext();
+            if (!ctx) return;
+
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            const now = ctx.currentTime;
+
+            if (type === 'water') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(450, now);
+                osc.frequency.exponentialRampToValueAtTime(750, now + 0.08);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                osc.start(now);
+                osc.stop(now + 0.15);
+            } else if (type === 'check') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(523.25, now);
+                osc.frequency.setValueAtTime(659.25, now + 0.08);
+                gain.gain.setValueAtTime(0.18, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'fanfare') {
+                [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
+                    const o = ctx.createOscillator();
+                    const g = ctx.createGain();
+                    o.connect(g);
+                    g.connect(ctx.destination);
+                    o.type = 'sine';
+                    o.frequency.setValueAtTime(f, now + i * 0.08);
+                    g.gain.setValueAtTime(0.15, now + i * 0.08);
+                    g.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+                    o.start(now + i * 0.08);
+                    o.stop(now + 0.5);
+                });
+            }
+        }
+
+        function toggleAudioMute() {
+            app.isMuted = !app.isMuted;
+            persist();
+            const icon = app.isMuted ? '🔕' : '🔔';
+            const sbBtn = document.getElementById('sidebarMuteBtn');
+            const mobBtn = document.getElementById('mobileMuteBtn');
+            if (sbBtn) sbBtn.innerText = icon;
+            if (mobBtn) mobBtn.innerText = icon;
+        }
+
+        // Motor de Confeti
+        function triggerConfettiManual() {
+            const canvas = document.getElementById('confettiCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const particles = [];
+            const colors = ['#22C55E', '#06B6D4', '#A855F7', '#F97316', '#EC4899', '#EAB308'];
+
+            for (let i = 0; i < 90; i++) {
+                particles.push({
+                    x: canvas.width / 2,
+                    y: canvas.height * 0.45,
+                    w: Math.random() * 8 + 4,
+                    h: Math.random() * 6 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    vx: (Math.random() - 0.5) * 14,
+                    vy: (Math.random() - 0.7) * 14,
+                    rot: Math.random() * 360,
+                    opacity: 1
+                });
+            }
+
+            function frame() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                let alive = false;
+                particles.forEach(p => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.3;
+                    p.opacity -= 0.012;
+                    p.rot += 3;
+                    if (p.opacity > 0) {
+                        alive = true;
+                        ctx.save();
+                        ctx.translate(p.x, p.y);
+                        ctx.rotate((p.rot * Math.PI) / 180);
+                        ctx.fillStyle = p.color;
+                        ctx.globalAlpha = p.opacity;
+                        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                        ctx.restore();
+                    }
+                });
+                if (alive) requestAnimationFrame(frame);
+            }
+            frame();
+        }
+
+        window.addEventListener('resize', () => {
+            const canvas = document.getElementById('confettiCanvas');
+            if (canvas) {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            checkDailyReset();
+            renderScheduleCards();
+            renderWaterControls();
+            renderFoodPills();
+            calculateSemesterDays();
+            updateOverallProgress();
+            updateLiveActivityCheck();
+            switchView(app.currentView || 'horario');
+
+            const icon = app.isMuted ? '🔕' : '🔔';
+            const sbBtn = document.getElementById('sidebarMuteBtn');
+            const mobBtn = document.getElementById('mobileMuteBtn');
+            if (sbBtn) sbBtn.innerText = icon;
+            if (mobBtn) mobBtn.innerText = icon;
+
+            // Actualización del reloj y de la actividad en vivo cada segundo
+            setInterval(updateLiveActivityCheck, 1000);
+            // Comprobación de cambio de día a medianoche
+            setInterval(checkDailyReset, 60000);
+        });
+    </script>
+</body>
+</html>
