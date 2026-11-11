@@ -54,46 +54,268 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* ========================================================
+           SISTEMA DE DISEÑO LIQUID GLASS (APPLE iOS / VisionOS)
+           ======================================================== */
+
         /* Paneles Glassmorphism Pro */
         .glass-sidebar {
-            background: rgba(255, 255, 255, 0.90);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
             border-right: 1px solid rgba(226, 232, 240, 0.85);
             box-shadow: 4px 0 30px -10px rgba(0, 0, 0, 0.03);
         }
 
         .glass-card-gozu {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(226, 232, 240, 0.9);
-            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(255, 255, 255, 0.90);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            box-shadow: 
+                inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.9),
+                0 4px 20px -2px rgba(15, 23, 42, 0.05);
+            transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
         .glass-card-gozu:hover {
             transform: translateY(-2px);
-            border-color: rgba(16, 185, 129, 0.4);
-            box-shadow: 0 12px 30px -4px rgba(16, 185, 129, 0.12);
+            border-color: rgba(16, 185, 129, 0.45);
+            box-shadow: 
+                inset 0 1px 1.5px 0 rgba(255, 255, 255, 1),
+                0 14px 32px -4px rgba(16, 185, 129, 0.14);
         }
 
-        /* Botón Nav Sidebar Activo */
-        .nav-btn-pro.active {
-            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+        /* 1. Botón Base Liquid Glass (Frosted Glass Translucency) */
+        .liquid-glass-btn {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(248, 250, 252, 0.55) 100%);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.95),
+                inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.03),
+                0 4px 16px -2px rgba(15, 23, 42, 0.06),
+                0 1px 3px 0 rgba(0, 0, 0, 0.03);
+            transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            user-select: none;
+        }
+        .liquid-glass-btn:hover {
+            transform: translateY(-2px) scale(1.015);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(241, 245, 249, 0.78) 100%);
+            border-color: rgba(255, 255, 255, 1);
+            box-shadow: 
+                inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 1),
+                inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.04),
+                0 8px 24px -3px rgba(15, 23, 42, 0.1);
+        }
+        .liquid-glass-btn:active {
+            transform: translateY(1px) scale(0.96) !important;
+            box-shadow: 
+                inset 0 2px 5px 0 rgba(0, 0, 0, 0.12),
+                0 2px 6px -1px rgba(15, 23, 42, 0.05) !important;
+        }
+
+        /* 2. Botón Apple Emerald Liquid Glass */
+        .liquid-emerald-btn {
+            position: relative;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.98) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.45);
             color: #FFFFFF !important;
-            box-shadow: 0 8px 20px -4px rgba(16, 185, 129, 0.4);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+            box-shadow: 
+                inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.65),
+                inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.2),
+                0 8px 25px -3px rgba(16, 185, 129, 0.45),
+                0 2px 8px -1px rgba(16, 185, 129, 0.3);
+            transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            user-select: none;
+        }
+        .liquid-emerald-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            background: linear-gradient(135deg, rgba(16, 185, 129, 1) 0%, rgba(4, 120, 87, 1) 100%);
+            box-shadow: 
+                inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.75),
+                inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.22),
+                0 12px 30px -4px rgba(16, 185, 129, 0.55);
+        }
+        .liquid-emerald-btn:active {
+            transform: translateY(1px) scale(0.96) !important;
+            box-shadow: 
+                inset 0 3px 6px 0 rgba(0, 0, 0, 0.25),
+                0 2px 8px -1px rgba(16, 185, 129, 0.3) !important;
+        }
+
+        /* 3. Botón Apple Sky Liquid Glass (Hidratación & Agua) */
+        .liquid-sky-btn {
+            position: relative;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.95) 0%, rgba(2, 132, 199, 0.98) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            color: #FFFFFF !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+            box-shadow: 
+                inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.65),
+                inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.15),
+                0 8px 24px -3px rgba(2, 132, 199, 0.4),
+                0 2px 6px -1px rgba(2, 132, 199, 0.25);
+            transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            user-select: none;
+        }
+        .liquid-sky-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            background: linear-gradient(135deg, rgba(56, 189, 248, 1) 0%, rgba(3, 105, 161, 1) 100%);
+            box-shadow: 
+                inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.8),
+                0 12px 28px -3px rgba(2, 132, 199, 0.5);
+        }
+        .liquid-sky-btn:active {
+            transform: translateY(1px) scale(0.96) !important;
+            box-shadow: 
+                inset 0 3px 6px 0 rgba(0, 0, 0, 0.22),
+                0 2px 6px -1px rgba(2, 132, 199, 0.25) !important;
+        }
+
+        /* 4. Botón Apple VisionOS Dark Liquid Glass (Filtro Activo) */
+        .liquid-dark-btn {
+            position: relative;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: #FFFFFF !important;
+            box-shadow: 
+                inset 0 1.5px 1px 0 rgba(255, 255, 255, 0.35),
+                inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.3),
+                0 8px 22px -3px rgba(15, 23, 42, 0.35);
+            transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            user-select: none;
+        }
+        .liquid-dark-btn:hover {
+            transform: translateY(-1.5px) scale(1.015);
+            box-shadow: 
+                inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.45),
+                0 10px 26px -3px rgba(15, 23, 42, 0.45);
+        }
+        .liquid-dark-btn:active {
+            transform: translateY(1px) scale(0.96) !important;
+        }
+
+        /* 5. Botón de Icono Apple Pebble Liquid Glass (Mute, Fullscreen, Reset) */
+        .liquid-icon-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(248, 250, 252, 0.65) 100%);
+            backdrop-filter: blur(14px) saturate(180%);
+            -webkit-backdrop-filter: blur(14px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            box-shadow: 
+                inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 1),
+                inset 0 -1px 1.5px 0 rgba(0, 0, 0, 0.04),
+                0 4px 14px -2px rgba(15, 23, 42, 0.06);
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            user-select: none;
+        }
+        .liquid-icon-btn:hover {
+            transform: translateY(-2px) scale(1.08);
+            background: #FFFFFF;
+            border-color: rgba(255, 255, 255, 1);
+            box-shadow: 
+                inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 1),
+                0 8px 20px -2px rgba(15, 23, 42, 0.12);
+        }
+        .liquid-icon-btn:active {
+            transform: translateY(1px) scale(0.92) !important;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.15) !important;
+        }
+
+        /* 6. Checkbox Táctil Liquid Glass para Hábitos */
+        .check-liquid {
+            position: relative;
+            transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 
+                inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.9),
+                inset 0 -1px 1px 0 rgba(0, 0, 0, 0.04),
+                0 2px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        .check-liquid.checked {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+            border-color: rgba(255, 255, 255, 0.45) !important;
+            box-shadow: 
+                inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.75),
+                inset 0 -1px 2px 0 rgba(0, 0, 0, 0.2),
+                0 6px 16px -2px rgba(16, 185, 129, 0.45) !important;
+            animation: liquidCheckBounce 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes liquidCheckBounce {
+            0% { transform: scale(0.85); }
+            50% { transform: scale(1.22); }
+            100% { transform: scale(1.05); }
+        }
+
+        /* 7. Botones de Navegación Sidebar Pro con Liquid Glass */
+        .nav-btn-pro {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(248, 250, 252, 0.35) 100%);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 
+                inset 0 1px 1px 0 rgba(255, 255, 255, 0.9),
+                0 2px 8px -2px rgba(15, 23, 42, 0.04);
+            transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            user-select: none;
+        }
+        .nav-btn-pro:hover {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(248, 250, 252, 0.7) 100%);
+            border-color: rgba(255, 255, 255, 1);
+            transform: translateX(4px);
+            box-shadow: 
+                inset 0 1px 1.5px 0 rgba(255, 255, 255, 1),
+                0 6px 16px -2px rgba(15, 23, 42, 0.08);
+        }
+        .nav-btn-pro:active {
+            transform: scale(0.97);
+        }
+        .nav-btn-pro.active {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.95) 0%, rgba(5, 150, 105, 0.98) 100%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.45) !important;
+            color: #FFFFFF !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+            box-shadow: 
+                inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.65),
+                inset 0 -1.5px 2px 0 rgba(0, 0, 0, 0.2),
+                0 10px 25px -4px rgba(16, 185, 129, 0.45) !important;
+            transform: translateX(0);
         }
         .nav-btn-pro.active span {
             color: #FFFFFF !important;
         }
 
-        /* Bottom Dock Mobile Activo */
+        /* 8. Bottom Dock Mobile Activo */
         .mobile-dock-btn.active {
             color: #059669;
         }
+        .mobile-dock-btn .dock-icon-bg {
+            transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
         .mobile-dock-btn.active .dock-icon-bg {
-            background: #DCFCE7;
-            transform: scale(1.1);
+            background: linear-gradient(135deg, rgba(220, 252, 231, 0.95) 0%, rgba(187, 247, 208, 0.9) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            box-shadow: 
+                inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.9),
+                0 4px 12px -2px rgba(16, 185, 129, 0.25);
+            transform: scale(1.12);
         }
 
         /* Botella de agua interactiva con ola */
@@ -128,9 +350,12 @@
 
         /* Tarjeta Activa En Vivo */
         .card-active-now {
-            border-color: #10B981 !important;
-            box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.5), 0 10px 25px -4px rgba(16, 185, 129, 0.2) !important;
-            background: #FFFFFF !important;
+            border-color: rgba(16, 185, 129, 0.85) !important;
+            box-shadow: 
+                inset 0 1px 1px 0 rgba(255, 255, 255, 0.9),
+                0 0 0 2px rgba(16, 185, 129, 0.4), 
+                0 12px 30px -4px rgba(16, 185, 129, 0.22) !important;
+            background: rgba(255, 255, 255, 0.98) !important;
         }
 
         /* Animación Modal */
@@ -175,7 +400,7 @@
                     "Los hábitos que creas hoy, determinarán quién serás." — <strong>Nicole Vignola</strong>
                 </div>
             </div>
-            <button onclick="closeCongratsModal()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:opacity-95 transition">
+            <button onclick="closeCongratsModal()" class="liquid-emerald-btn w-full py-3.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-lg">
                 ¡Gracias! Seguir brillando ✨
             </button>
         </div>
@@ -201,10 +426,10 @@
             <div class="flex items-center gap-1 text-[11px] font-bold text-amber-700 bg-amber-50 px-2 py-1 rounded-lg border border-amber-200">
                 <span>🔥</span> <span id="mobileStreakCount">3</span>d
             </div>
-            <button onclick="toggleAudioMute()" id="mobileMuteBtn" class="w-8 h-8 rounded-lg bg-white/90 border border-slate-200 flex items-center justify-center text-xs text-slate-600">
+            <button onclick="toggleAudioMute()" id="mobileMuteBtn" class="liquid-icon-btn w-8 h-8 rounded-xl text-xs text-slate-700" title="Sonido">
                 🔔
             </button>
-            <button onclick="toggleFullScreen()" class="w-8 h-8 rounded-lg bg-white/90 border border-slate-200 flex items-center justify-center text-slate-600">
+            <button onclick="toggleFullScreen()" class="liquid-icon-btn w-8 h-8 rounded-xl text-slate-700" title="Pantalla Completa">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
             </button>
         </div>
@@ -235,7 +460,7 @@
                 </div>
 
                 <!-- Botón Fullscreen F11 -->
-                <button onclick="toggleFullScreen()" class="w-9 h-9 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-600 hover:text-slate-900 transition shadow-xs" title="Pantalla Completa">
+                <button onclick="toggleFullScreen()" class="liquid-icon-btn w-9 h-9 rounded-xl text-slate-700 shadow-xs" title="Pantalla Completa">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
                 </button>
             </div>
@@ -267,28 +492,28 @@
             </div>
 
             <!-- BOTONES DE NAVEGACIÓN PRO -->
-            <nav class="space-y-1.5 pt-1">
-                <button onclick="switchView('horario')" id="nav-horario" class="nav-btn-pro active w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white transition-all duration-200">
+            <nav class="space-y-2 pt-1">
+                <button onclick="switchView('horario')" id="nav-horario" class="nav-btn-pro active w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-700">
                     <span class="text-lg">⏰</span>
-                    <span class="flex-1 text-left">Mi Horario Completo</span>
+                    <span class="flex-1 text-left font-display">Mi Horario Completo</span>
                     <span class="text-[10px] px-2 py-0.5 rounded-md bg-white/30 text-white font-semibold">14 Bloques</span>
                 </button>
 
-                <button onclick="switchView('nutricion')" id="nav-nutricion" class="nav-btn-pro w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white transition-all duration-200">
+                <button onclick="switchView('nutricion')" id="nav-nutricion" class="nav-btn-pro w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-700">
                     <span class="text-lg">🥗</span>
-                    <span class="flex-1 text-left">Nutrición & Cenas</span>
+                    <span class="flex-1 text-left font-display">Nutrición & Cenas</span>
                     <span id="navWaterBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 font-bold">0 ml</span>
                 </button>
 
-                <button onclick="switchView('neuro')" id="nav-neuro" class="nav-btn-pro w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white transition-all duration-200">
+                <button onclick="switchView('neuro')" id="nav-neuro" class="nav-btn-pro w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-700">
                     <span class="text-lg">🧠</span>
-                    <span class="flex-1 text-left">Neurociencia (Nicole)</span>
+                    <span class="flex-1 text-left font-display">Neurociencia (Nicole)</span>
                     <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-purple-100 text-purple-700 font-bold">Hacks</span>
                 </button>
 
-                <button onclick="switchView('metas')" id="nav-metas" class="nav-btn-pro w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-600 hover:bg-white transition-all duration-200">
+                <button onclick="switchView('metas')" id="nav-metas" class="nav-btn-pro w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-700">
                     <span class="text-lg">🎯</span>
-                    <span class="flex-1 text-left">Metas & Semestre</span>
+                    <span class="flex-1 text-left font-display">Metas & Semestre</span>
                     <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-amber-100 text-amber-800 font-bold">Éxito</span>
                 </button>
             </nav>
@@ -300,11 +525,11 @@
                 <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
                 <span id="sidebarLiveClock" class="font-mono font-bold text-slate-700">08:00 AM</span>
             </div>
-            <div class="flex items-center gap-1">
-                <button onclick="toggleAudioMute()" id="sidebarMuteBtn" class="p-1.5 rounded-xl hover:bg-white transition text-slate-600" title="Sonido">
+            <div class="flex items-center gap-1.5">
+                <button onclick="toggleAudioMute()" id="sidebarMuteBtn" class="liquid-icon-btn w-8 h-8 rounded-xl text-slate-700" title="Sonido">
                     🔔
                 </button>
-                <button onclick="resetDayAction()" class="p-1.5 rounded-xl hover:bg-rose-50 text-slate-400 hover:text-rose-500 transition" title="Reiniciar día">
+                <button onclick="resetDayAction()" class="liquid-icon-btn w-8 h-8 rounded-xl text-slate-400 hover:text-rose-500" title="Reiniciar día">
                     🔄
                 </button>
             </div>
@@ -370,18 +595,18 @@
                 </div>
             </div>
 
-            <!-- Barra de Filtros Rápidos Gozu -->
+            <!-- Barra de Filtros Rápidos Gozu Liquid Glass -->
             <div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs font-bold scrollbar-none">
-                <button onclick="filterSchedule('all')" id="filter-all" class="schedule-filter-btn px-3 py-1.5 rounded-xl bg-slate-900 text-white transition shrink-0 shadow-xs">
+                <button onclick="filterSchedule('all')" id="filter-all" class="schedule-filter-btn liquid-dark-btn px-3.5 py-1.5 rounded-xl text-white font-bold transition shrink-0">
                     🌟 Todos los 14 Bloques
                 </button>
-                <button onclick="filterSchedule('comidas')" id="filter-comidas" class="schedule-filter-btn px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-emerald-400 hover:text-emerald-700 transition shrink-0 flex items-center gap-1.5">
+                <button onclick="filterSchedule('comidas')" id="filter-comidas" class="schedule-filter-btn liquid-glass-btn px-3.5 py-1.5 rounded-xl text-slate-700 transition shrink-0 flex items-center gap-1.5">
                     <span>🍲</span> <span>Las 3 Comidas (Desayuno, Almuerzo y Cena)</span>
                 </button>
-                <button onclick="filterSchedule('universidad')" id="filter-universidad" class="schedule-filter-btn px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-indigo-400 hover:text-indigo-700 transition shrink-0 flex items-center gap-1.5">
+                <button onclick="filterSchedule('universidad')" id="filter-universidad" class="schedule-filter-btn liquid-glass-btn px-3.5 py-1.5 rounded-xl text-slate-700 transition shrink-0 flex items-center gap-1.5">
                     <span>🎓</span> <span>Universidad & Clases</span>
                 </button>
-                <button onclick="filterSchedule('noche')" id="filter-noche" class="schedule-filter-btn px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-purple-400 hover:text-purple-700 transition shrink-0 flex items-center gap-1.5">
+                <button onclick="filterSchedule('noche')" id="filter-noche" class="schedule-filter-btn liquid-glass-btn px-3.5 py-1.5 rounded-xl text-slate-700 transition shrink-0 flex items-center gap-1.5">
                     <span>🌙</span> <span>Noche & 8h Sueño</span>
                 </button>
             </div>
@@ -429,8 +654,8 @@
                                 Toca cualquier vaso para marcarlo (+250 ml c/u):
                             </div>
                             <div class="grid grid-cols-4 gap-2" id="interactiveGlassesGrid"></div>
-                            <button onclick="quickAddWater()" class="w-full py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs transition shadow-xs active:scale-95">
-                                +1 Vaso Rápido (250 ml)
+                            <button onclick="quickAddWater()" class="liquid-sky-btn w-full py-2.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-md active:scale-95 flex items-center justify-center gap-1.5">
+                                <span>💧</span> <span>+1 Vaso Rápido (250 ml)</span>
                             </button>
                         </div>
                     </div>
@@ -765,8 +990,8 @@
                         <span id="settingsDaysRemaining">--</span> días
                     </div>
                     <p class="text-[11px] sm:text-xs text-slate-500">Para culminar tu ciclo universitario con honores.</p>
-                    <button onclick="editSemesterGoal()" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 underline block pt-1">
-                        Cambiar fecha fin de semestre →
+                    <button onclick="editSemesterGoal()" class="liquid-glass-btn px-3 py-1.5 rounded-xl text-xs font-bold text-emerald-700 inline-flex items-center gap-1.5 mt-2">
+                        📅 Cambiar fecha fin de semestre →
                     </button>
                 </div>
 
@@ -784,7 +1009,7 @@
                         <h4 class="font-display font-bold text-sm sm:text-base text-slate-900 mt-1">¡Recompénsate!</h4>
                         <p class="text-[11px] sm:text-xs text-slate-500 mt-1">Celebra cada pequeño logro de tu rutina diaria.</p>
                     </div>
-                    <button onclick="showPersonalCongrats()" class="py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold text-xs shadow-md shadow-emerald-500/20 active:scale-95 transition">
+                    <button onclick="showPersonalCongrats()" class="liquid-emerald-btn w-full py-2.5 rounded-2xl font-bold text-xs uppercase tracking-wider shadow-md">
                         Ver Mis Felicitaciones 🎉
                     </button>
                 </div>
@@ -1088,15 +1313,15 @@
             if (mainEl) mainEl.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Filtro de Horario
+        // Filtro de Horario Liquid Glass
         function filterSchedule(cat) {
             currentScheduleFilter = cat;
             document.querySelectorAll('.schedule-filter-btn').forEach(btn => {
-                btn.className = 'schedule-filter-btn px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-slate-700 hover:border-slate-300 transition shrink-0';
+                btn.className = 'schedule-filter-btn liquid-glass-btn px-3.5 py-1.5 rounded-xl text-slate-700 transition shrink-0';
             });
             const activeBtn = document.getElementById(`filter-${cat}`);
             if (activeBtn) {
-                activeBtn.className = 'schedule-filter-btn px-3 py-1.5 rounded-xl bg-slate-900 text-white font-bold transition shrink-0 shadow-xs';
+                activeBtn.className = 'schedule-filter-btn liquid-dark-btn px-3.5 py-1.5 rounded-xl text-white font-bold transition shrink-0';
             }
             renderScheduleCards();
         }
@@ -1173,7 +1398,7 @@
                             ` : ''}
                             ${item.hasNutritionLink ? `
                                 <div class="mt-2.5">
-                                    <button onclick="event.stopPropagation(); switchView('nutricion')" class="text-[10px] font-bold text-indigo-600 hover:text-indigo-800 underline flex items-center gap-1">
+                                    <button onclick="event.stopPropagation(); switchView('nutricion')" class="liquid-glass-btn px-2.5 py-1 rounded-lg text-[10px] font-bold text-indigo-700 hover:text-indigo-900 inline-flex items-center gap-1 active:scale-95">
                                         👉 Ver recetas y cronología completa en Nutrición →
                                     </button>
                                 </div>
@@ -1181,12 +1406,12 @@
                         </div>
                     </div>
 
-                    <div class="w-6 h-6 sm:w-7 sm:h-7 rounded-xl border-2 flex items-center justify-center shrink-0 transition-all ${
+                    <div class="check-liquid w-6 h-6 sm:w-7 sm:h-7 rounded-xl border-2 flex items-center justify-center shrink-0 transition-all ${
                         isChecked 
-                            ? 'bg-emerald-500 border-emerald-500 text-white shadow-md shadow-emerald-500/25 scale-105' 
-                            : 'border-slate-300 bg-slate-50 hover:border-emerald-400'
+                            ? 'checked scale-105' 
+                            : 'border-slate-300 bg-white/70 backdrop-blur-xs hover:border-emerald-400 hover:scale-105'
                     }">
-                        ${isChecked ? '<svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>' : ''}
+                        ${isChecked ? '<svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white drop-shadow-xs" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>' : ''}
                     </div>
                 `;
                 container.appendChild(card);
@@ -1200,7 +1425,7 @@
             renderScheduleCards();
         }
 
-        // Renderizado Agua
+        // Renderizado Agua Liquid Glass
         function renderWaterControls() {
             const grid = document.getElementById('interactiveGlassesGrid');
             if (!grid) return;
@@ -1209,11 +1434,13 @@
             for (let i = 0; i < 8; i++) {
                 const filled = i < app.waterGlasses;
                 const btn = document.createElement('button');
-                btn.className = `p-2 rounded-xl border flex flex-col items-center justify-center transition-all ${
-                    filled ? 'bg-sky-500 border-sky-400 text-white shadow-xs font-bold' : 'bg-white border-sky-200 text-slate-300 hover:border-sky-400'
+                btn.className = `p-2 rounded-2xl flex flex-col items-center justify-center transition-all ${
+                    filled 
+                        ? 'liquid-sky-btn shadow-md font-bold' 
+                        : 'liquid-glass-btn text-slate-400 hover:text-sky-600'
                 }`;
                 btn.onclick = () => setWaterGlasses(i + 1);
-                btn.innerHTML = `<span class="text-sm sm:text-base">💧</span><span class="text-[8px] sm:text-[9px] font-bold mt-0.5">${(i+1)*250} ml</span>`;
+                btn.innerHTML = `<span class="text-sm sm:text-base">💧</span><span class="text-[8px] sm:text-[9px] font-bold mt-0.5 ${filled ? 'text-white' : 'text-slate-500'}">${(i+1)*250} ml</span>`;
                 grid.appendChild(btn);
             }
 
@@ -1253,7 +1480,7 @@
             }
         }
 
-        // Frutas y Verduras
+        // Frutas y Verduras Liquid Glass
         function renderFoodPills() {
             const container = document.getElementById('nutritionFoodPills');
             if (!container) return;
@@ -1265,15 +1492,17 @@
                 if (active) count++;
 
                 const btn = document.createElement('button');
-                btn.className = `p-2.5 sm:p-3 rounded-2xl border text-center transition-all flex flex-col items-center justify-center ${
-                    active ? 'bg-emerald-50 border-emerald-400 text-emerald-900 shadow-xs font-bold' : 'bg-white border-slate-200 text-slate-600 hover:border-emerald-300'
+                btn.className = `p-2.5 sm:p-3 rounded-2xl text-center transition-all flex flex-col items-center justify-center ${
+                    active 
+                        ? 'liquid-emerald-btn shadow-md' 
+                        : 'liquid-glass-btn text-slate-600'
                 }`;
                 btn.onclick = () => toggleFoodPortion(idx);
                 btn.innerHTML = `
                     <span class="text-xl sm:text-2xl">${item.icon}</span>
-                    <span class="text-[10px] sm:text-[11px] font-bold mt-1 text-slate-900">${item.label}</span>
-                    <span class="text-[8px] sm:text-[9px] text-slate-400">${item.detail}</span>
-                    <span class="text-[9px] mt-1 ${active ? 'text-emerald-700 font-extrabold' : 'text-slate-300'}">
+                    <span class="text-[10px] sm:text-[11px] font-bold mt-1 ${active ? 'text-white' : 'text-slate-900'}">${item.label}</span>
+                    <span class="text-[8px] sm:text-[9px] ${active ? 'text-emerald-100' : 'text-slate-400'}">${item.detail}</span>
+                    <span class="text-[9px] mt-1 font-extrabold ${active ? 'text-white bg-white/20 px-2 py-0.5 rounded-md' : 'text-slate-400'}">
                         ${active ? '✓ Lista' : '+ Marcar'}
                     </span>
                 `;
