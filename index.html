@@ -574,18 +574,43 @@
                 </div>
             </div>
 
-            <!-- Widget Semestre & Racha Dual -->
-            <div class="grid grid-cols-2 gap-2 p-2.5 rounded-2xl bg-white/80 border border-slate-200/80 shadow-xs text-xs">
-                <div>
-                    <div class="text-[10px] text-slate-400 font-bold uppercase">Semestre</div>
-                    <div class="font-extrabold text-slate-900 flex items-baseline gap-1">
-                        <span id="sidebarDaysRemaining" class="text-base text-emerald-600 font-display">--</span> días
+            <!-- Widget Semestre, Racha & Compromiso Textual -->
+            <div class="liquid-glass-btn p-3 rounded-2xl text-xs space-y-2 border border-white/90">
+                <div class="grid grid-cols-2 gap-2 pb-2 border-b border-slate-200/60">
+                    <div>
+                        <div class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Semestre</div>
+                        <div class="font-extrabold text-slate-900 flex items-baseline gap-1 mt-0.5">
+                            <span id="sidebarDaysRemaining" class="text-base text-emerald-600 font-display">--</span> días
+                        </div>
+                    </div>
+                    <div class="border-l border-slate-200/60 pl-2.5">
+                        <div class="text-[9px] text-amber-600 font-bold uppercase tracking-wider flex items-center gap-1">
+                            <span>🔥</span> Racha
+                        </div>
+                        <div class="font-extrabold text-amber-600 flex items-baseline gap-1 mt-0.5 font-display">
+                            <span id="sidebarStreak" class="text-base">3</span> días seguidos
+                        </div>
                     </div>
                 </div>
-                <div class="border-l border-slate-100 pl-2">
-                    <div class="text-[10px] text-slate-400 font-bold uppercase">Racha</div>
-                    <div class="font-extrabold text-amber-600 flex items-center gap-1 font-display">
-                        <span>🔥</span> <span id="sidebarStreak">3</span> días
+
+                <!-- Compromiso Textual de Yeny Ruth -->
+                <div class="space-y-1 pt-0.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[9px] font-extrabold uppercase tracking-wider text-emerald-800 flex items-center gap-1">
+                            <span>📜</span> Mi Compromiso Hoy:
+                        </span>
+                        <button onclick="editPersonalCommitment()" class="text-[9px] font-bold text-emerald-600 hover:text-emerald-800 underline" title="Editar mi compromiso">
+                            ✏️ Editar
+                        </button>
+                    </div>
+                    <p id="sidebarCommitmentText" class="text-[11px] text-slate-700 italic font-medium leading-snug">
+                        "Hoy honro mis 8h de sueño (9 PM), mi concentración en clases y mi salud. ¡Cada día cuenta!"
+                    </p>
+                    <div class="flex items-center justify-between text-[9px] text-slate-400 font-semibold pt-0.5">
+                        <span class="text-emerald-700 font-bold flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Pacto activo
+                        </span>
+                        <span class="font-display font-bold text-slate-500">Yeny Ruth A.</span>
                     </div>
                 </div>
             </div>
@@ -668,6 +693,18 @@
                 <h2 id="headerSectionTitle" class="text-xl sm:text-2xl lg:text-3xl font-display font-extrabold text-slate-900">
                     Mi Horario Completo (Rutina de 8 Horas de Sueño)
                 </h2>
+                <!-- Micro-Píldora de Compromiso Textual Visible en Móvil y Escritorio -->
+                <div class="flex items-center gap-2 mt-2 text-[11px] flex-wrap">
+                    <span class="liquid-glass-btn px-2.5 py-0.5 rounded-lg text-amber-800 font-bold text-[10px] shrink-0 flex items-center gap-1">
+                        <span>📜</span> <span>Compromiso de Hoy:</span>
+                    </span>
+                    <span id="headerCommitmentPreview" class="italic truncate text-slate-700 font-medium max-w-[200px] sm:max-w-md lg:max-w-xl">
+                        "Hoy honro mis 8h de sueño (9 PM), mi concentración en clases y mi salud. ¡Cada día cuenta!"
+                    </span>
+                    <button onclick="editPersonalCommitment()" class="text-emerald-700 hover:text-emerald-900 text-[10px] font-bold underline shrink-0">
+                        ✏️ Editar
+                    </button>
+                </div>
             </div>
 
             <!-- Widget Barra de Progreso Global del Día -->
@@ -1132,6 +1169,43 @@
                     </button>
                 </div>
             </div>
+
+            <!-- Carta / Manifiesto de Compromiso Personal -->
+            <div class="glass-card-gozu p-5 sm:p-6 rounded-3xl space-y-3 bg-gradient-to-br from-amber-50/40 via-white to-emerald-50/40 border border-emerald-200/80">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-400 to-emerald-500 text-white flex items-center justify-center text-xl shadow-xs shrink-0">
+                            📜
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-800">
+                                Pacto Personal con mi Futuro
+                            </span>
+                            <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900">
+                                Mi Declaración de Compromiso Diario
+                            </h4>
+                        </div>
+                    </div>
+                    <button onclick="editPersonalCommitment()" class="liquid-glass-btn px-3.5 py-1.5 rounded-xl text-xs font-bold text-emerald-700 inline-flex items-center gap-1.5 self-start sm:self-auto">
+                        ✏️ Modificar Compromiso
+                    </button>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-white/80 border border-emerald-100 shadow-xs relative overflow-hidden">
+                    <p id="metasCommitmentText" class="text-xs sm:text-sm text-slate-700 italic font-medium leading-relaxed">
+                        "Hoy honro mis 8h de sueño (9 PM), mi concentración en clases y mi salud. ¡Cada día cuenta!"
+                    </p>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between pt-3 mt-2 border-t border-slate-100 text-[10px] sm:text-xs gap-1.5">
+                        <div class="flex items-center gap-1.5 text-emerald-700 font-bold">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span>Sustentado por tu racha activa de <strong id="metasCommitmentStreak">3</strong> días consecutivos 🔥</span>
+                        </div>
+                        <div class="font-display font-extrabold text-slate-800">
+                            Firmado por: <em>Yeny Ruth Afaraya Huancco</em> ✍️
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Footer -->
@@ -1373,8 +1447,12 @@
             isMuted: false,
             currentView: 'horario',
             congratsShownToday: false,
-            lastActiveDate: ''
+            lastActiveDate: '',
+            personalCommitment: 'Hoy honro mis 8h de sueño (9 PM), mi concentración en clases y mi salud. ¡Cada día cuenta!'
         };
+        if (!app.personalCommitment) {
+            app.personalCommitment = 'Hoy honro mis 8h de sueño (9 PM), mi concentración en clases y mi salud. ¡Cada día cuenta!';
+        }
 
         let currentScheduleFilter = 'all';
 
@@ -1711,6 +1789,38 @@
 
             const mobStreak = document.getElementById('mobileStreakCount');
             if (mobStreak) mobStreak.innerText = app.streak || 3;
+
+            const mcs = document.getElementById('metasCommitmentStreak');
+            if (mcs) mcs.innerText = app.streak || 3;
+        }
+
+        // Gestión del Compromiso Diario Textual
+        function updateCommitmentDisplay() {
+            const defaultText = "Hoy honro mis 8h de sueño (9 PM), mi concentración en clases y mi salud. ¡Cada día cuenta!";
+            const text = app.personalCommitment || defaultText;
+
+            const sidebarEl = document.getElementById('sidebarCommitmentText');
+            if (sidebarEl) sidebarEl.innerText = `"${text}"`;
+
+            const metasEl = document.getElementById('metasCommitmentText');
+            if (metasEl) metasEl.innerText = `"${text}"`;
+
+            const bannerEl = document.getElementById('headerCommitmentPreview');
+            if (bannerEl) bannerEl.innerText = `"${text}"`;
+
+            const mcs = document.getElementById('metasCommitmentStreak');
+            if (mcs) mcs.innerText = app.streak || 3;
+        }
+
+        function editPersonalCommitment() {
+            const current = app.personalCommitment || "Hoy honro mis 8h de sueño (9 PM), mi concentración en clases y mi salud. ¡Cada día cuenta!";
+            const nuevo = prompt("Escribe tu Compromiso Diario personal (Pacto con tu Éxito):", current);
+            if (nuevo !== null && nuevo.trim() !== "") {
+                app.personalCommitment = nuevo.trim();
+                persist();
+                updateCommitmentDisplay();
+                playSound('check');
+            }
         }
 
         function editSemesterGoal() {
@@ -1919,6 +2029,7 @@
             renderFoodPills();
             calculateSemesterDays();
             updateOverallProgress();
+            updateCommitmentDisplay();
             updateLiveActivityCheck();
             switchView(app.currentView || 'horario');
 
