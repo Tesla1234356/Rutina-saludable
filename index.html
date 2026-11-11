@@ -310,6 +310,26 @@
             color: #FFFFFF !important;
         }
 
+        /* Micro-Badges de Iconos Gozu para Navegación */
+        .nav-icon-badge {
+            transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .nav-btn-pro:hover .nav-icon-badge {
+            transform: scale(1.1) rotate(2deg);
+        }
+        .nav-btn-pro.active .nav-icon-badge {
+            background: rgba(255, 255, 255, 0.22) !important;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            box-shadow: inset 0 1px 1.5px rgba(255, 255, 255, 0.7), 0 2px 8px rgba(0, 0, 0, 0.12);
+            transform: scale(1.05);
+        }
+        .nav-btn-pro.active .nav-icon-badge svg {
+            color: #FFFFFF !important;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+        }
+
         /* 8. Bottom Dock Mobile Liquid Glass */
         .mobile-dock-btn {
             position: relative;
@@ -335,6 +355,13 @@
         }
         .mobile-dock-btn.active .dock-icon-bg span {
             filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+        }
+        .mobile-dock-btn .dock-icon-bg svg {
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .mobile-dock-btn.active .dock-icon-bg svg {
+            color: #FFFFFF !important;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
         }
         .mobile-dock-btn.active span:last-child {
             color: #059669 !important;
@@ -565,26 +592,45 @@
 
             <!-- BOTONES DE NAVEGACIÓN PRO -->
             <nav class="space-y-2 pt-1">
-                <button onclick="switchView('horario')" id="nav-horario" class="nav-btn-pro active w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-700">
-                    <span class="text-lg">⏰</span>
+                <button onclick="switchView('horario')" id="nav-horario" class="nav-btn-pro active w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl text-xs sm:text-sm font-bold text-slate-700">
+                    <div class="nav-icon-badge w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-white flex items-center justify-center shadow-xs shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="9"></circle>
+                            <polyline points="12 7 12 12 15 14"></polyline>
+                        </svg>
+                    </div>
                     <span class="flex-1 text-left font-display">Mi Horario Completo</span>
                     <span class="text-[10px] px-2 py-0.5 rounded-md bg-white/30 text-white font-semibold">14 Bloques</span>
                 </button>
 
-                <button onclick="switchView('nutricion')" id="nav-nutricion" class="nav-btn-pro w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-700">
-                    <span class="text-lg">🥗</span>
+                <button onclick="switchView('nutricion')" id="nav-nutricion" class="nav-btn-pro w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl text-xs sm:text-sm font-bold text-slate-700">
+                    <div class="nav-icon-badge w-8 h-8 rounded-xl bg-gradient-to-tr from-sky-500 to-cyan-400 text-white flex items-center justify-center shadow-xs shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M3 12h18a8 8 0 01-16 0z"></path>
+                            <path d="M12 3a4 4 0 014 4c0 3-4 5-4 5s-4-2-4-5a4 4 0 014-4z"></path>
+                        </svg>
+                    </div>
                     <span class="flex-1 text-left font-display">Nutrición & Cenas</span>
                     <span id="navWaterBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 font-bold">0 ml</span>
                 </button>
 
-                <button onclick="switchView('neuro')" id="nav-neuro" class="nav-btn-pro w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-700">
-                    <span class="text-lg">🧠</span>
+                <button onclick="switchView('neuro')" id="nav-neuro" class="nav-btn-pro w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl text-xs sm:text-sm font-bold text-slate-700">
+                    <div class="nav-icon-badge w-8 h-8 rounded-xl bg-gradient-to-tr from-purple-500 to-indigo-500 text-white flex items-center justify-center shadow-xs shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
                     <span class="flex-1 text-left font-display">Neurociencia (Nicole)</span>
                     <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-purple-100 text-purple-700 font-bold">Hacks</span>
                 </button>
 
-                <button onclick="switchView('metas')" id="nav-metas" class="nav-btn-pro w-full flex items-center gap-3 px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold text-slate-700">
-                    <span class="text-lg">🎯</span>
+                <button onclick="switchView('metas')" id="nav-metas" class="nav-btn-pro w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl text-xs sm:text-sm font-bold text-slate-700">
+                    <div class="nav-icon-badge w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-400 to-orange-500 text-white flex items-center justify-center shadow-xs shrink-0">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                            <path d="M6 9H4a2 2 0 01-2-2V5a2 2 0 012-2h2m12 6h2a2 2 0 002-2V5a2 2 0 00-2-2h-2M6 3h12v7a6 6 0 01-12 0V3z"></path>
+                            <path d="M9 21h6m-3-7v7"></path>
+                        </svg>
+                    </div>
                     <span class="flex-1 text-left font-display">Metas & Semestre</span>
                     <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-amber-100 text-amber-800 font-bold">Éxito</span>
                 </button>
@@ -1094,9 +1140,18 @@
                 Diseñado exclusivamente para <strong>Yeny Ruth Afaraya Huancco</strong> • NeuroRutina 2026
             </div>
             <div class="hidden sm:flex items-center gap-2">
-                <button onclick="switchView('horario')" class="liquid-glass-btn px-3 py-1.5 rounded-xl text-[11px] font-bold text-slate-600 hover:text-slate-900">⏰ Horario (14 Bloques)</button>
-                <button onclick="switchView('nutricion')" class="liquid-glass-btn px-3 py-1.5 rounded-xl text-[11px] font-bold text-slate-600 hover:text-slate-900">🥗 Nutrición & Cenas</button>
-                <button onclick="switchView('neuro')" class="liquid-glass-btn px-3 py-1.5 rounded-xl text-[11px] font-bold text-slate-600 hover:text-slate-900">🧠 Neurociencia</button>
+                <button onclick="switchView('horario')" class="liquid-glass-btn px-3 py-1.5 rounded-xl text-[11px] font-bold text-slate-700 hover:text-emerald-700 inline-flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15 14"></polyline></svg>
+                    <span>Horario (14 Bloques)</span>
+                </button>
+                <button onclick="switchView('nutricion')" class="liquid-glass-btn px-3 py-1.5 rounded-xl text-[11px] font-bold text-slate-700 hover:text-sky-700 inline-flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-sky-600" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 12h18a8 8 0 01-16 0z"></path><path d="M12 3a4 4 0 014 4c0 3-4 5-4 5s-4-2-4-5a4 4 0 014-4z"></path></svg>
+                    <span>Nutrición & Cenas</span>
+                </button>
+                <button onclick="switchView('neuro')" class="liquid-glass-btn px-3 py-1.5 rounded-xl text-[11px] font-bold text-slate-700 hover:text-purple-700 inline-flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-purple-600" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    <span>Neurociencia</span>
+                </button>
             </div>
         </div>
 
@@ -1108,28 +1163,39 @@
     <nav class="flex md:hidden fixed bottom-2 inset-x-3 z-40 rounded-3xl bg-white/85 backdrop-blur-2xl border border-white/80 px-2 py-1.5 pb-[max(0.4rem,env(safe-area-inset-bottom))] justify-around shadow-xl shadow-slate-900/10">
         <button onclick="switchView('horario')" id="mobile-nav-horario" class="mobile-dock-btn active flex-1 py-1 flex flex-col items-center justify-center text-slate-500 transition-all">
             <div class="dock-icon-bg w-10 h-7 rounded-xl flex items-center justify-center transition-all">
-                <span class="text-base">⏰</span>
+                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <polyline points="12 7 12 12 15 14"></polyline>
+                </svg>
             </div>
             <span class="text-[10px] font-bold mt-0.5">Horario</span>
         </button>
 
         <button onclick="switchView('nutricion')" id="mobile-nav-nutricion" class="mobile-dock-btn flex-1 py-1 flex flex-col items-center justify-center text-slate-500 transition-all">
             <div class="dock-icon-bg w-10 h-7 rounded-xl flex items-center justify-center transition-all">
-                <span class="text-base">🥗</span>
+                <svg class="w-4 h-4 text-sky-600" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M3 12h18a8 8 0 01-16 0z"></path>
+                    <path d="M12 3a4 4 0 014 4c0 3-4 5-4 5s-4-2-4-5a4 4 0 014-4z"></path>
+                </svg>
             </div>
             <span class="text-[10px] font-bold mt-0.5">Cenas & Agua</span>
         </button>
 
         <button onclick="switchView('neuro')" id="mobile-nav-neuro" class="mobile-dock-btn flex-1 py-1 flex flex-col items-center justify-center text-slate-500 transition-all">
             <div class="dock-icon-bg w-10 h-7 rounded-xl flex items-center justify-center transition-all">
-                <span class="text-base">🧠</span>
+                <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                </svg>
             </div>
             <span class="text-[10px] font-bold mt-0.5">Neuro</span>
         </button>
 
         <button onclick="switchView('metas')" id="mobile-nav-metas" class="mobile-dock-btn flex-1 py-1 flex flex-col items-center justify-center text-slate-500 transition-all">
             <div class="dock-icon-bg w-10 h-7 rounded-xl flex items-center justify-center transition-all">
-                <span class="text-base">🎯</span>
+                <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M6 9H4a2 2 0 01-2-2V5a2 2 0 012-2h2m12 6h2a2 2 0 002-2V5a2 2 0 00-2-2h-2M6 3h12v7a6 6 0 01-12 0V3z"></path>
+                    <path d="M9 21h6m-3-7v7"></path>
+                </svg>
             </div>
             <span class="text-[10px] font-bold mt-0.5">Metas</span>
         </button>
