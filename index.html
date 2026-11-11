@@ -417,6 +417,38 @@
             pointer-events: none;
         }
 
+        /* 11. Marco de Perfil Liquid Glass Gozu (Apple Squircle Glow) */
+        .liquid-avatar-frame {
+            position: relative;
+            padding: 2.5px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #10B981 0%, #06B6D4 45%, #6366F1 80%, #EC4899 100%);
+            box-shadow: 
+                0 0 20px -3px rgba(16, 185, 129, 0.4),
+                0 4px 14px -2px rgba(99, 102, 241, 0.25);
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .liquid-avatar-frame:hover {
+            transform: scale(1.04) rotate(0.5deg);
+            box-shadow: 
+                0 0 28px 0 rgba(16, 185, 129, 0.6),
+                0 8px 24px -2px rgba(99, 102, 241, 0.35);
+        }
+        .liquid-avatar-frame .inner-img-wrap {
+            border-radius: 17px;
+            overflow: hidden;
+            position: relative;
+            background: #F1F5F9;
+        }
+        .liquid-avatar-frame .inner-img-wrap::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.15) 100%);
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
         /* Botella de agua interactiva con ola */
         .water-bottle-gozu {
             position: relative;
@@ -482,8 +514,17 @@
     <!-- ============================================== -->
     <div id="congratsModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
         <div class="glass-card-gozu max-w-sm sm:max-w-md w-full p-6 sm:p-8 rounded-3xl text-center space-y-4 shadow-2xl border-2 border-emerald-400 animate-gozu-pop relative">
-            <div class="w-16 h-16 rounded-3xl bg-gradient-to-tr from-emerald-400 via-teal-500 to-amber-400 text-white flex items-center justify-center text-3xl mx-auto shadow-lg shadow-emerald-500/30">
-                🏆
+            <!-- Avatar Ganador de Yeny Ruth con Trofeo Liquid Glass -->
+            <div class="relative w-20 h-20 mx-auto">
+                <div class="w-20 h-20 rounded-3xl bg-gradient-to-tr from-emerald-400 via-teal-400 to-amber-400 p-[3px] shadow-xl shadow-emerald-500/30">
+                    <div class="w-full h-full rounded-[21px] overflow-hidden bg-slate-100 relative">
+                        <img src="perfil-yeny-ruth.jpeg" alt="Yeny Ruth" class="w-full h-full object-cover" style="object-position: center 20%;">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent to-white/20 pointer-events-none"></div>
+                    </div>
+                </div>
+                <div class="absolute -bottom-2 -right-2 w-8 h-8 rounded-2xl bg-gradient-to-tr from-amber-400 to-yellow-500 text-white flex items-center justify-center text-base shadow-lg border-2 border-white">
+                    🏆
+                </div>
             </div>
             <div>
                 <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
@@ -510,13 +551,20 @@
     <!-- ============================================== -->
     <header class="flex md:hidden glass-sidebar px-4 py-2.5 items-center justify-between border-b border-slate-200/80 sticky top-0 z-30 shrink-0">
         <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-pink-400 via-rose-400 to-purple-500 p-0.5 shadow-sm shrink-0">
-                <div class="w-full h-full bg-white rounded-[10px] flex items-center justify-center font-display font-extrabold text-[11px] text-purple-700">
-                    YR
+            <div class="relative shrink-0">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-400 via-teal-400 to-indigo-500 p-[2px] shadow-sm">
+                    <div class="w-full h-full rounded-[10px] overflow-hidden bg-slate-100 relative">
+                        <img src="perfil-yeny-ruth.jpeg" alt="Yeny Ruth" class="w-full h-full object-cover" style="object-position: center 20%;">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/10 to-white/30 pointer-events-none"></div>
+                    </div>
                 </div>
+                <span class="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-white shadow-2xs"></span>
             </div>
             <div>
-                <h1 class="font-display font-bold text-sm text-slate-900 leading-tight">Yeny Ruth</h1>
+                <div class="flex items-center gap-1">
+                    <h1 class="font-display font-bold text-sm text-slate-900 leading-tight">Yeny Ruth</h1>
+                    <span class="text-[8px] font-black text-emerald-700 bg-emerald-100 px-1.5 py-0.2 rounded-full border border-emerald-300">PRO ✨</span>
+                </div>
                 <span class="text-[10px] text-slate-400 font-medium">NeuroRutina 8h ✨</span>
             </div>
         </div>
@@ -543,16 +591,27 @@
             <!-- Perfil de Yeny Ruth con Glow -->
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-400 via-rose-400 to-purple-500 p-0.5 shadow-md shadow-pink-500/20 shrink-0">
-                        <div class="w-full h-full bg-white rounded-[14px] flex items-center justify-center font-display font-extrabold text-sm text-purple-700">
-                            YR
+                    <div class="relative group cursor-pointer">
+                        <div class="liquid-avatar-frame w-14 h-14 shrink-0">
+                            <div class="inner-img-wrap w-full h-full">
+                                <img src="perfil-yeny-ruth.jpeg" alt="Yeny Ruth Afaraya Huancco" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" style="object-position: center 20%;">
+                            </div>
                         </div>
+                        <span class="absolute -bottom-1 -right-1 flex h-4 w-4" title="Rutina Activa">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 border-2 border-white shadow-xs items-center justify-center text-[7px] text-white font-black">✓</span>
+                        </span>
                     </div>
                     <div>
-                        <h1 class="font-display font-extrabold text-sm sm:text-base text-slate-900 leading-tight">
-                            Yeny Ruth
-                        </h1>
-                        <span class="text-[10px] font-semibold text-slate-400 truncate block max-w-[140px]">
+                        <div class="flex items-center gap-1.5">
+                            <h1 class="font-display font-extrabold text-sm sm:text-base text-slate-900 leading-tight">
+                                Yeny Ruth
+                            </h1>
+                            <span class="inline-flex items-center text-[9px] font-extrabold text-emerald-700 bg-emerald-100/90 border border-emerald-300/80 px-1.5 py-0.2 rounded-full tracking-wider shadow-2xs">
+                                PRO ✨
+                            </span>
+                        </div>
+                        <span class="text-[10px] font-semibold text-slate-500 truncate block max-w-[140px]">
                             Afaraya Huancco
                         </span>
                     </div>
@@ -1200,8 +1259,11 @@
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                             <span>Sustentado por tu racha activa de <strong id="metasCommitmentStreak">3</strong> días consecutivos 🔥</span>
                         </div>
-                        <div class="font-display font-extrabold text-slate-800">
-                            Firmado por: <em>Yeny Ruth Afaraya Huancco</em> ✍️
+                        <div class="flex items-center gap-2 font-display font-extrabold text-slate-800">
+                            <div class="w-6 h-6 rounded-full bg-gradient-to-tr from-emerald-400 to-teal-500 p-[1.5px] shrink-0 shadow-xs">
+                                <img src="perfil-yeny-ruth.jpeg" alt="Yeny Ruth" class="w-full h-full rounded-full object-cover" style="object-position: center 20%;">
+                            </div>
+                            <span>Firmado por: <em>Yeny Ruth Afaraya Huancco</em> ✍️</span>
                         </div>
                     </div>
                 </div>
