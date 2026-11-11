@@ -512,7 +512,7 @@
     <!-- ============================================== -->
     <!-- MODAL DE FELICITACIONES 100% -->
     <!-- ============================================== -->
-    <div id="congratsModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div id="congratsModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4" onclick="if(event.target === this) closeCongratsModal()">
         <div class="glass-card-gozu max-w-sm sm:max-w-md w-full p-6 sm:p-8 rounded-3xl text-center space-y-4 shadow-2xl border-2 border-emerald-400 animate-gozu-pop relative">
             <!-- Avatar Ganador de Yeny Ruth con Trofeo Liquid Glass -->
             <div class="relative w-20 h-20 mx-auto">
@@ -544,6 +544,138 @@
                 ¡Gracias! Seguir brillando ✨
             </button>
         </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- MODAL GOZU: EDITAR COMPROMISO DIARIO (LIQUID GLASS) -->
+    <!-- ============================================== -->
+    <div id="commitmentModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md hidden flex items-center justify-center p-4 transition-all" onclick="if(event.target === this) closeCommitmentModal()">
+        <div class="glass-card-gozu max-w-sm sm:max-w-md w-full p-6 sm:p-7 rounded-3xl space-y-4 shadow-2xl border border-white/80 animate-gozu-pop relative">
+            <div class="flex items-center justify-between border-b border-slate-200/70 pb-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-400 to-emerald-500 text-white flex items-center justify-center text-xl shadow-xs shrink-0">
+                        📜
+                    </div>
+                    <div>
+                        <h3 class="font-display font-extrabold text-base sm:text-lg text-slate-900 leading-tight">
+                            Mi Compromiso Diario
+                        </h3>
+                        <p class="text-[11px] text-slate-500 font-medium">Pacto de identidad y enfoque universitario</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeCommitmentModal()" class="liquid-icon-btn w-8 h-8 rounded-xl text-slate-500 hover:text-slate-800 text-sm" title="Cerrar">
+                    ✕
+                </button>
+            </div>
+
+            <div class="space-y-2">
+                <label for="commitmentModalInput" class="block text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                    Tu Declaración para hoy:
+                </label>
+                <div class="relative">
+                    <textarea id="commitmentModalInput" rows="3" onkeydown="if((event.ctrlKey || event.metaKey) && event.key === 'Enter') savePersonalCommitmentModal()" class="w-full p-3.5 rounded-2xl bg-white/90 border border-slate-200 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 outline-none text-xs sm:text-sm text-slate-800 font-medium placeholder-slate-400 transition-all resize-none shadow-inner" placeholder="Escribe tu compromiso..."></textarea>
+                </div>
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                    <span class="text-[10px] text-slate-400 font-semibold self-center mr-1">Atajos:</span>
+                    <button type="button" onclick="setQuickCommitment('Hoy honro mis 8h de sueño (9 PM), mi concentración en clases y mi salud. ¡Cada día cuenta!')" class="text-[10px] bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 text-slate-600 px-2 py-1 rounded-lg border border-slate-200/80 transition-all font-medium cursor-pointer">
+                        🌙 8h Sueño & Salud
+                    </button>
+                    <button type="button" onclick="setQuickCommitment('Atención plena en mis clases universitarias y nutrición balanceada.')" class="text-[10px] bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 text-slate-600 px-2 py-1 rounded-lg border border-slate-200/80 transition-all font-medium cursor-pointer">
+                        🎓 Enfoque Clases
+                    </button>
+                    <button type="button" onclick="setQuickCommitment('Dopamina protegida en la mañana, caminata activa y cena ligera a tiempo.')" class="text-[10px] bg-slate-100 hover:bg-emerald-50 hover:text-emerald-700 text-slate-600 px-2 py-1 rounded-lg border border-slate-200/80 transition-all font-medium cursor-pointer">
+                        🧠 NeuroHábitos
+                    </button>
+                </div>
+                <div class="text-[10px] text-slate-400 flex items-center justify-between pt-0.5">
+                    <span>💡 Presiona <kbd class="px-1 py-0.5 bg-slate-100 border border-slate-200 rounded text-[9px] font-mono">Ctrl + Enter</kbd> para guardar rápido</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 pt-2">
+                <button type="button" onclick="closeCommitmentModal()" class="liquid-glass-btn flex-1 py-2.5 rounded-xl text-xs font-bold text-slate-600">
+                    Cancelar
+                </button>
+                <button type="button" onclick="savePersonalCommitmentModal()" class="liquid-emerald-btn flex-1 py-2.5 rounded-xl text-xs font-bold shadow-md">
+                    Guardar Compromiso ✨
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- MODAL GOZU: FECHA FIN DE SEMESTRE (LIQUID GLASS) -->
+    <!-- ============================================== -->
+    <div id="semesterModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md hidden flex items-center justify-center p-4 transition-all" onclick="if(event.target === this) closeSemesterModal()">
+        <div class="glass-card-gozu max-w-sm w-full p-6 rounded-3xl space-y-4 shadow-2xl border border-white/80 animate-gozu-pop relative">
+            <div class="flex items-center justify-between border-b border-slate-200/70 pb-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-400 to-indigo-500 text-white flex items-center justify-center text-xl shadow-xs shrink-0">
+                        📅
+                    </div>
+                    <div>
+                        <h3 class="font-display font-extrabold text-base text-slate-900 leading-tight">
+                            Fin de Semestre
+                        </h3>
+                        <p class="text-[11px] text-slate-500 font-medium">Meta universitaria</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeSemesterModal()" class="liquid-icon-btn w-8 h-8 rounded-xl text-slate-500 hover:text-slate-800 text-sm" title="Cerrar">
+                    ✕
+                </button>
+            </div>
+
+            <div class="space-y-2">
+                <label for="semesterModalInput" class="block text-[11px] font-bold uppercase tracking-wider text-slate-600">
+                    Fecha de Culminación del Ciclo:
+                </label>
+                <input type="date" id="semesterModalInput" class="w-full p-3 rounded-2xl bg-white/90 border border-slate-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none text-xs sm:text-sm text-slate-800 font-semibold shadow-inner">
+                <p class="text-[11px] text-slate-400">El contador regresivo en la barra lateral y en la pestaña Metas se sincronizará automáticamente.</p>
+            </div>
+
+            <div class="flex items-center gap-2 pt-2">
+                <button type="button" onclick="closeSemesterModal()" class="liquid-glass-btn flex-1 py-2.5 rounded-xl text-xs font-bold text-slate-600">
+                    Cancelar
+                </button>
+                <button type="button" onclick="saveSemesterGoalModal()" class="liquid-emerald-btn flex-1 py-2.5 rounded-xl text-xs font-bold shadow-md">
+                    Actualizar Fecha 🎯
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- MODAL GOZU: CONFIRMAR REINICIO DIARIO (LIQUID GLASS) -->
+    <!-- ============================================== -->
+    <div id="confirmResetModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-md hidden flex items-center justify-center p-4 transition-all" onclick="if(event.target === this) closeResetModal()">
+        <div class="glass-card-gozu max-w-sm w-full p-6 rounded-3xl text-center space-y-4 shadow-2xl border border-white/80 animate-gozu-pop relative">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-400 via-rose-400 to-red-500 text-white flex items-center justify-center text-2xl mx-auto shadow-lg shadow-rose-500/20">
+                🔄
+            </div>
+            <div>
+                <h3 class="font-display font-extrabold text-lg text-slate-900">
+                    ¿Reiniciar Hábitos del Día?
+                </h3>
+                <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+                    Comenzarás desde cero los 14 bloques, el agua y las porciones para una nueva jornada de éxito, <strong>Yeny Ruth</strong>.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-2 pt-1">
+                <button type="button" onclick="closeResetModal()" class="liquid-glass-btn flex-1 py-2.5 rounded-xl text-xs font-bold text-slate-600">
+                    Continuar como estoy
+                </button>
+                <button type="button" onclick="executeResetDayAction()" class="liquid-dark-btn flex-1 py-2.5 rounded-xl text-xs font-bold shadow-md">
+                    Sí, reiniciar 🚀
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Flotante Apple Glass -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-slate-900/90 text-white text-xs font-semibold shadow-2xl backdrop-blur-md border border-white/10">
+        <span id="toastIcon">✨</span>
+        <span id="toastMessage">Compromiso actualizado con éxito</span>
     </div>
 
     <!-- ============================================== -->
@@ -1866,37 +1998,118 @@
             if (mcs) mcs.innerText = app.streak || 3;
         }
 
+        // Toast Notificación Flotante Apple Glass
+        function showToast(message, icon = '✨') {
+            const toast = document.getElementById('toastNotification');
+            const msg = document.getElementById('toastMessage');
+            const ic = document.getElementById('toastIcon');
+            if (!toast) return;
+            if (msg) msg.innerText = message;
+            if (ic) ic.innerText = icon;
+            toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+            }, 2800);
+        }
+
+        // Gestión del Compromiso Diario con Modal Liquid Glass
         function editPersonalCommitment() {
-            const current = app.personalCommitment || "Hoy honro mis 8h de sueño (9 PM), mi concentración en clases y mi salud. ¡Cada día cuenta!";
-            const nuevo = prompt("Escribe tu Compromiso Diario personal (Pacto con tu Éxito):", current);
-            if (nuevo !== null && nuevo.trim() !== "") {
-                app.personalCommitment = nuevo.trim();
+            const input = document.getElementById('commitmentModalInput');
+            if (input) {
+                input.value = app.personalCommitment || "Hoy honro mis 8h de sueño (9 PM), mi concentración en clases y mi salud. ¡Cada día cuenta!";
+            }
+            const modal = document.getElementById('commitmentModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    if (input) {
+                        input.focus();
+                        input.setSelectionRange(input.value.length, input.value.length);
+                    }
+                }, 60);
+            }
+        }
+
+        function closeCommitmentModal() {
+            const modal = document.getElementById('commitmentModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function setQuickCommitment(text) {
+            const input = document.getElementById('commitmentModalInput');
+            if (input) {
+                input.value = text;
+                input.focus();
+            }
+        }
+
+        function savePersonalCommitmentModal() {
+            const input = document.getElementById('commitmentModalInput');
+            const nuevo = input ? input.value.trim() : "";
+            if (nuevo !== "") {
+                app.personalCommitment = nuevo;
                 persist();
                 updateCommitmentDisplay();
                 playSound('check');
+                showToast("¡Compromiso guardado con éxito!", "📜");
             }
+            closeCommitmentModal();
         }
 
+        // Gestión de Fecha Fin de Ciclo con Modal Liquid Glass
         function editSemesterGoal() {
-            const input = prompt("Fecha fin de ciclo universitario (formato YYYY-MM-DD):", app.semesterEndDate);
-            if (input && !isNaN(Date.parse(input))) {
-                app.semesterEndDate = input;
+            const input = document.getElementById('semesterModalInput');
+            if (input) {
+                input.value = app.semesterEndDate || '2026-07-20';
+            }
+            const modal = document.getElementById('semesterModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeSemesterModal() {
+            const modal = document.getElementById('semesterModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function saveSemesterGoalModal() {
+            const input = document.getElementById('semesterModalInput');
+            const val = input ? input.value : "";
+            if (val && !isNaN(Date.parse(val))) {
+                app.semesterEndDate = val;
                 persist();
                 calculateSemesterDays();
+                playSound('check');
+                showToast("¡Fecha de semestre actualizada!", "🎯");
             }
+            closeSemesterModal();
         }
 
+        // Confirmación de Reinicio con Modal Liquid Glass
         function resetDayAction() {
-            if (confirm("¿Deseas reiniciar los hábitos marcados para comenzar un nuevo día, Yeny Ruth?")) {
-                app.completedSchedule = {};
-                app.waterGlasses = 0;
-                app.foodPortions = [false, false, false, false, false];
-                app.congratsShownToday = false;
-                persist();
-                renderScheduleCards();
-                renderWaterControls();
-                renderFoodPills();
-            }
+            const modal = document.getElementById('confirmResetModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeResetModal() {
+            const modal = document.getElementById('confirmResetModal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function executeResetDayAction() {
+            app.completedSchedule = {};
+            app.waterGlasses = 0;
+            app.foodPortions = [false, false, false, false, false];
+            app.congratsShownToday = false;
+            persist();
+            renderScheduleCards();
+            renderWaterControls();
+            renderFoodPills();
+            updateOverallProgress();
+            playSound('check');
+            closeResetModal();
+            showToast("Hábitos reiniciados para tu nueva jornada", "🚀");
         }
 
         // Detección en Tiempo Real Sin Bugs (Minuto a Minuto)
@@ -2073,6 +2286,15 @@
             if (canvas) {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
+            }
+        });
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeCongratsModal();
+                closeCommitmentModal();
+                closeSemesterModal();
+                closeResetModal();
             }
         });
 
